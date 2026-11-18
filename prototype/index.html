@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Card Scan">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<title>Card Scan</title>
+<style>
+:root{--bg:#0d1014;--panel:#15191f;--panel2:#1e232b;--line:#2a3039;--text:#eef1f5;--muted:#98a2b1;--accent:#ffc83d;--ink:#1d1600;--good:#4ade80;--warn:#fbbf24;--bad:#f87171;--price:#67e8f9}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#000;color:var(--text);font:16px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;overscroll-behavior:none}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.app{position:fixed;inset:0;display:flex;flex-direction:column}
+
+/* header */
+header{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#000;z-index:3;
+  padding:calc(env(safe-area-inset-top) + 8px) calc(env(safe-area-inset-right) + 14px) 10px calc(env(safe-area-inset-left) + 14px)}
+.bucketbtn{display:flex;align-items:center;gap:8px;min-width:0;height:42px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-weight:700;font-size:16px}
+.bucketbtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bucketbtn svg{width:19px;height:19px;flex:none}
+.bucketbtn .box{color:var(--accent)}
+.hbtns{display:flex;gap:8px;flex:none}
+.icon{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center;cursor:pointer;padding:0;position:relative;overflow:hidden}
+.icon svg{width:20px;height:20px}
+.icon.on{background:var(--accent);color:var(--ink);border-color:var(--accent)}
+.icon input[type=file]{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+
+/* camera */
+.cam{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:#0a0c0f;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0a0c0f}
+.guide{position:absolute;border-radius:14px;box-shadow:0 0 0 200vmax rgba(0,0,0,.4);pointer-events:none}
+.guide i{position:absolute;width:30px;height:30px;border:3px solid #fff}
+.guide i:nth-child(1){left:-3px;top:-3px;border-right:0;border-bottom:0;border-top-left-radius:14px}
+.guide i:nth-child(2){right:-3px;top:-3px;border-left:0;border-bottom:0;border-top-right-radius:14px}
+.guide i:nth-child(3){left:-3px;bottom:-3px;border-right:0;border-top:0;border-bottom-left-radius:14px}
+.guide i:nth-child(4){right:-3px;bottom:-3px;border-left:0;border-top:0;border-bottom-right-radius:14px}
+.tap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;color:rgba(255,255,255,.85);font-weight:700;font-size:21px;text-shadow:0 1px 10px rgba(0,0,0,.6);pointer-events:none;white-space:nowrap}
+.tap svg{width:52px;height:52px;display:block;margin:0 auto 10px}
+.chip{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font-size:13px;padding:6px 12px;border-radius:99px;white-space:nowrap;pointer-events:none;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--warn)}
+.dot.ok{background:var(--good)}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.flash.go{animation:flash .32s ease-out}
+@keyframes flash{from{opacity:.65}to{opacity:0}}
+.camerr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px 28px 40px;text-align:center;color:var(--muted);background:#0a0c0f;font-size:15px}
+.camerr button{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:10px 18px;font-weight:650;cursor:pointer}
+
+/* bottom sheet */
+.sheet{flex:none;height:42vh;height:42dvh;margin-top:-16px;position:relative;z-index:2;background:var(--panel);border-radius:18px 18px 0 0;display:flex;flex-direction:column;transition:height .28s ease;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -8px 24px rgba(0,0,0,.45)}
+.app.expanded .sheet{height:calc(100vh - var(--hh,64px) + 16px);height:calc(100dvh - var(--hh,64px) + 16px)}
+.bar{flex:none;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:8px 12px 2px}
+.bar .l{display:flex;gap:2px;align-items:center}
+.txtbtn{background:none;border:none;font-size:16px;font-weight:650;padding:8px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.txtbtn svg{width:22px;height:22px}
+.chev{background:none;border:none;padding:6px 16px;cursor:pointer}
+.chev svg{width:28px;height:28px;display:block;transition:transform .25s}
+.app.expanded .chev svg{transform:rotate(180deg)}
+.sum{justify-self:end;font-weight:750;font-size:19px;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:6px}
+.sum em{font-style:normal;color:var(--price)}
+.sum .sep{color:var(--muted);margin:0 7px}
+.offerline{flex:none;display:flex;justify-content:space-between;gap:10px;padding:2px 18px 8px;font-size:13.5px;color:var(--muted);cursor:pointer;white-space:nowrap;overflow:hidden}
+.offerline b{color:var(--text);font-variant-numeric:tabular-nums}
+.offerline .o b{color:var(--accent)}
+.list{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 24px}
+
+/* bucket panel (expanded only) */
+.bpanel{display:none;padding-top:4px}
+.app.expanded .bpanel{display:block}
+.bname{display:flex;gap:8px;align-items:center}
+.bname input{flex:1;min-width:0;background:transparent;border:none;border-bottom:1px dashed var(--line);font-size:20px;font-weight:750;padding:4px 0;outline:none}
+.bdate{color:var(--muted);font-size:12px;margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{background:var(--panel2);border-radius:12px;padding:10px;min-width:0}
+.stat small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.stat b{display:block;font-size:17px;font-variant-numeric:tabular-nums;margin-top:3px;overflow:hidden;text-overflow:ellipsis}
+.stat span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.stat .money{display:flex;align-items:baseline;margin-top:3px;border-bottom:1px dashed #4a525e}
+.stat .money i{font-style:normal;font-weight:700;font-size:17px}
+.stat input{width:100%;min-width:0;background:transparent;border:none;font-size:17px;font-weight:700;padding:0;font-variant-numeric:tabular-nums;outline:none}
+.pos{color:var(--good)!important}.neg{color:var(--bad)!important}
+.calc{background:var(--panel2);border-radius:14px;padding:14px;margin:4px 0 10px}
+.calc-h{display:flex;justify-content:space-between;align-items:baseline;color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.calc-main{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.field{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.field small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.field .in{display:flex;align-items:baseline;gap:2px}
+.field input{width:100%;min-width:0;background:transparent;border:none;font-size:26px;font-weight:800;padding:0;outline:none;font-variant-numeric:tabular-nums}
+.field i{font-style:normal;font-size:20px;font-weight:700;color:var(--muted)}
+.field.offer input{color:var(--accent)}
+.calc input[type=range]{width:100%;margin:14px 0 6px;accent-color:var(--accent)}
+.presets{display:flex;gap:5px}
+.presets button{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:7px 0;font-weight:700;font-size:14px;cursor:pointer}
+.presets button.on{background:var(--accent);color:var(--ink);border-color:var(--accent)}
+.minrow{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.minrow input{width:70px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-weight:700;color:var(--text);font-size:16px}
+.calc .usepaid{margin-top:12px;width:100%;border:1px solid #5a4a16;color:var(--accent);background:none;border-radius:10px;padding:9px;font-weight:700;cursor:pointer}
+textarea.notes{width:100%;min-height:58px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;resize:vertical;font-size:16px;outline:none}
+.bactions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.bactions button{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px 6px;font-weight:650;font-size:14px;cursor:pointer}
+.sec{color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin:16px 0 4px;display:flex;justify-content:space-between;align-items:baseline}
+.sec button{background:none;border:none;color:var(--bad);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;padding:4px 0}
+
+/* items */
+.item{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;padding:14px 0;border-top:1px solid var(--line);cursor:pointer}
+#items .item:first-child{border-top:0}
+.app.expanded #items .item:first-child{border-top:1px solid var(--line)}
+.thumbs{display:flex;gap:8px}
+.thumbs img,.thumbs .ph{width:60px;height:84px;border-radius:6px;object-fit:cover;background:var(--panel2);display:block}
+.thumbs .ph{display:grid;place-items:center;color:var(--muted);font-weight:700;font-size:20px}
+.thumbs .ph svg{width:24px;height:24px}
+.info{min-width:0;align-self:center}
+.title{font-weight:700;font-size:16.5px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sub{color:var(--muted);font-size:13px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prow{display:flex;align-items:center;gap:10px;margin-top:7px}
+.pill{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:3px 10px;font-weight:750;font-size:18px;font-variant-numeric:tabular-nums}
+.ioffer{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ioffer b{color:var(--accent)}
+.meta2{display:flex;align-items:center;gap:12px;font-size:15px}
+.change{background:none;border:none;padding:0;display:flex;align-items:center;gap:5px;font-weight:600;cursor:pointer}
+.change svg{width:17px;height:17px}
+.conf{font-weight:700}
+.conf.g{color:var(--good)}.conf.a{color:var(--warn)}.conf.r{color:var(--bad)}
+.spin{width:20px;height:20px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{color:var(--muted);text-align:center;padding:24px 12px;font-size:14px}
+
+/* dialogs */
+dialog{border:none;padding:0;background:var(--panel);color:var(--text)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog.bs{width:100%;max-width:600px;margin:auto auto 0;border-radius:18px 18px 0 0;max-height:90vh;max-height:90dvh;padding-bottom:env(safe-area-inset-bottom)}
+dialog.bs[open]{display:flex;flex-direction:column;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:.5}}
+.bs-head{flex:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 16px 6px}
+.bs-head h2{margin:0;font-size:18px}
+.done{border:none;background:var(--accent);color:var(--ink);font-weight:700;border-radius:10px;padding:8px 14px;cursor:pointer}
+.bs-body{overflow-y:auto;padding:4px 16px 18px;-webkit-overflow-scrolling:touch}
+.compare{display:flex;gap:12px;align-items:center}
+.compare img{width:70px;height:98px;border-radius:7px;object-fit:cover;background:var(--panel2);flex:none}
+.compare .t{font-weight:700;font-size:17px;line-height:1.2}
+.compare .s{color:var(--muted);font-size:13px;margin-top:3px}
+.compare a{font-size:14px;color:var(--accent);display:inline-block;margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.pchip{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:8px 12px;text-align:left;cursor:pointer;min-width:96px}
+.pchip b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.pchip span{font-size:12px;color:var(--muted)}
+.pchip.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 12px}
+.cand{background:none;border:none;padding:0;text-align:left;cursor:pointer;min-width:0}
+.cand img{width:100%;aspect-ratio:63/88;border-radius:7px;display:block;background:var(--panel2);object-fit:cover}
+.cand.on img{outline:3px solid var(--accent);outline-offset:2px}
+.cand span{display:block;font-size:12px;margin-top:5px;line-height:1.25;overflow-wrap:anywhere}
+.cand small{color:var(--muted)}
+.cand em{font-style:normal;color:var(--price);font-weight:700}
+form.s{display:flex;gap:8px}
+form.s input{flex:1;min-width:0;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 12px;font-size:16px}
+form.s button{height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);font-weight:650;cursor:pointer}
+.note{color:var(--muted);font-size:14px;margin:10px 0}
+.danger{color:var(--bad)!important;background:none!important;border:1px solid #4a2626!important;border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:600}
+.wide{width:100%;margin-top:14px}
+.row2{display:flex;gap:8px;margin-top:14px}
+.row2 select{flex:1;min-width:0;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);padding:0 10px;font-size:16px}
+.row2 button{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:0 14px;font-weight:650;cursor:pointer;height:42px}
+.btop{display:flex;gap:8px;margin:6px 0 12px}
+.btop button,.btop label{flex:1;display:flex;justify-content:center;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px;font-weight:650;font-size:14px;cursor:pointer;position:relative;overflow:hidden}
+.btop button.pri{background:var(--accent);color:var(--ink);border-color:var(--accent)}
+.btop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.grand{background:var(--panel2);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.grand b{color:var(--text);font-variant-numeric:tabular-nums}
+.brow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 2px;border-top:1px solid var(--line);cursor:pointer}
+.brow .n{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.brow .n em{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);background:var(--accent);border-radius:6px;padding:1px 6px}
+.brow .d{color:var(--muted);font-size:13px;margin-top:2px}
+.brow .v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.brow .v b{display:block;color:var(--price)}
+.brow .v span{font-size:12px;color:var(--muted)}
+dialog.mid{width:min(92vw,440px);border-radius:16px;padding:18px;max-height:88dvh;overflow-y:auto}
+dialog.mid h2{margin:0 0 6px;font-size:18px}
+dialog.mid p{color:var(--muted);font-size:14px;margin:6px 0 12px}
+dialog.mid label.f{display:block;font-size:13px;font-weight:650;color:var(--muted);margin:14px 0 6px}
+dialog.mid input,dialog.mid select{width:100%;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);padding:0 12px;font-size:16px}
+dialog.mid .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
+.row{display:flex;gap:8px;margin-top:16px}
+.row button{flex:1;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px;font-weight:650;cursor:pointer}
+.row button.pri{color:var(--accent)}
+.toast{position:fixed;left:50%;bottom:calc(46dvh + 10px);transform:translateX(-50%);background:#fff;color:#111;font-weight:650;font-size:14px;padding:8px 14px;border-radius:99px;z-index:20;pointer-events:none;opacity:0;transition:opacity .2s;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header id="hdr">
+    <button class="bucketbtn" id="bucketBtn" type="button" aria-label="Switch bucket">
+      <svg class="box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></svg>
+      <span id="bucketLabel">Bucket</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="hbtns">
+      <button class="icon" id="torchBtn" type="button" aria-label="Flashlight" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>
+      </button>
+      <label class="icon" aria-label="Scan from a photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="15.5" cy="9" r="1.8"/><path d="M3 17l5-5 4 4 2.5-2.5L21 19"/></svg>
+        <input type="file" accept="image/*" id="fileInput">
+      </label>
+      <button class="icon" id="settingsBtn" type="button" aria-label="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="cam" id="cam" role="button" aria-label="Tap to scan a card">
+    <video id="video" playsinline muted autoplay></video>
+    <div class="guide" id="guide"><i></i><i></i><i></i><i></i></div>
+    <div class="tap" id="tapHint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v4a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4.4 15a1.5 1.5 0 0 1 2.3-1.9L9 15.5V11"/><path d="M6.5 6.5a4 4 0 0 1 8 0" opacity=".6"/></svg>
+      Tap to Scan
+    </div>
+    <div class="chip" id="chip"><span class="dot" id="chipDot"></span><span id="chipText">Starting camera…</span></div>
+    <div class="flash" id="flash"></div>
+    <div class="camerr" id="camErr" hidden>
+      <div id="camErrText"></div>
+      <button type="button" id="camRetry">Try again</button>
+    </div>
+  </div>
+
+  <section class="sheet" id="sheet">
+    <div class="bar">
+      <div class="l">
+        <button class="txtbtn" id="searchBtn" type="button" aria-label="Search for a card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+        </button>
+        <button class="txtbtn" id="calcBtn" type="button" aria-label="Offer calculator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5v3M8.5 18h.01M12 18h.01"/></svg>
+        </button>
+      </div>
+      <button class="chev" id="chevBtn" type="button" aria-label="Open bucket details">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
+      </button>
+      <div class="sum" id="sum">0<span class="sep">•</span><em>$0.00</em></div>
+    </div>
+    <div class="offerline" id="offerLine"></div>
+    <div class="list" id="list">
+      <div class="bpanel" id="bpanel">
+        <div class="bname"><input id="bName" aria-label="Bucket name" autocomplete="off"></div>
+        <div class="bdate" id="bDate"></div>
+        <div class="stats">
+          <div class="stat"><small>Market value</small><b id="stMarket">$0.00</b><span id="stCount"></span></div>
+          <div class="stat"><small>We paid</small><div class="money"><i>$</i><input id="paidInput" inputmode="decimal" placeholder="0.00" autocomplete="off"></div><span id="stPaidPct"></span></div>
+          <div class="stat"><small>Profit</small><b id="stProfit">—</b><span id="stMargin"></span></div>
+        </div>
+        <div class="calc">
+          <div class="calc-h"><span>Offer calculator</span><span id="eligInfo"></span></div>
+          <div class="calc-main">
+            <div class="field"><small>Offer %</small><div class="in"><input id="pctInput" inputmode="decimal" autocomplete="off"><i>%</i></div></div>
+            <div class="field offer"><small>Offer / payout</small><div class="in"><i>$</i><input id="offerInput" inputmode="decimal" autocomplete="off"></div></div>
+          </div>
+          <input type="range" id="pctRange" min="0" max="100" step="1" aria-label="Offer percent">
+          <div class="presets" id="presets"></div>
+          <div class="minrow">Skip cards under $<input id="minInput" inputmode="decimal" autocomplete="off" placeholder="0"> <span id="minInfo"></span></div>
+          <button class="usepaid" id="usePaid" type="button">Use this offer as “We paid”</button>
+        </div>
+        <textarea class="notes" id="notes" placeholder="Notes: seller, where the bucket is stored, etc."></textarea>
+        <div class="bactions">
+          <button id="refreshBtn" type="button">Update prices</button>
+          <button id="shareBtn" type="button">Share CSV</button>
+          <button id="copyBtn" type="button">Copy CSV</button>
+        </div>
+        <div class="sec"><span>Cards</span><button id="delBucketBtn" type="button">Delete bucket</button></div>
+      </div>
+      <div id="items"></div>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<dialog class="bs" id="bs">
+  <div class="bs-head"><h2 id="bsTitle"></h2><button class="done" id="bsDone" type="button">Done</button></div>
+  <div class="bs-body" id="bsBody"></div>
+</dialog>
+
+<dialog class="mid" id="settings">
+  <h2>Settings</h2>
+  <label class="f" for="aiKeyInput">AI card recognition: Claude API key</label>
+  <input id="aiKeyInput" type="password" placeholder="sk-ant-…" autocapitalize="off" autocomplete="off" spellcheck="false">
+  <div class="hint">Saved only on this phone. Without a key the app uses the free text reader. Use a key with a monthly spend limit.</div>
+  <label class="f" for="aiModel">AI model</label>
+  <select id="aiModel">
+    <option value="claude-haiku-5-5">Fast &amp; cheapest: Claude Haiku 5.5</option>
+    <option value="claude-sonnet-5-5">Most accurate: Claude Sonnet 5.5</option>
+  </select>
+  <div class="row"><button id="testKey" type="button">Test AI key</button></div>
+  <div class="hint" id="testResult"></div>
+  <label class="f" for="defPct">Default offer % for new buckets</label>
+  <input id="defPct" inputmode="decimal" autocomplete="off">
+  <label class="f" for="tcgKeyInput">Pokémon TCG API key (optional)</label>
+  <input id="tcgKeyInput" type="text" placeholder="Only if you hit the daily lookup limit" autocapitalize="off" autocomplete="off" spellcheck="false">
+  <div class="row">
+    <button id="settingsCancel" type="button">Cancel</button>
+    <button id="settingsSave" type="button" class="pri">Save</button>
+  </div>
+</dialog>
+
+<dialog class="mid" id="askDlg">
+  <h2 id="askTitle"></h2>
+  <p id="askText"></p>
+  <input id="askInput" autocomplete="off" hidden>
+  <div class="row">
+    <button id="askCancel" type="button">Cancel</button>
+    <button id="askOk" type="button" class="pri">OK</button>
+  </div>
+</dialog>
+
+<script>
+(() => {
+'use strict';
+
+/* ================= constants ================= */
+const CARDS_API = 'https://api.pokemontcg.io/v2/cards';
+const CLAUDE_API = 'https://api.anthropic.com/v1/messages';
+const TESSERACT_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+const AI_CONCURRENCY = 3;
+const PRESETS = [50, 60, 65, 70, 75, 80, 85, 90];
+const $ = id => document.getElementById(id);
+const ICON_CHANGE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.6-4.5M4 4v3h3M4 13a8 8 0 0 0 14.6 4.5M20 20v-3h-3"/></svg>';
+const ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>';
+
+/* ================= small helpers ================= */
+const ls = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const money = v => (typeof v === 'number' && isFinite(v)) ? (v < 0 ? '-$' : '$') + Math.abs(v).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '—';
+const num2 = v => (Math.round(v * 100) / 100).toFixed(2);
+const pctFmt = v => String(Math.round(v * 10) / 10);
+const parseMoney = s => { const v = parseFloat(String(s == null ? '' : s).replace(/[$,%\s]/g, '')); return isFinite(v) ? v : null; };
+const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const fmtDate = t => new Date(t).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
+
+let toastTimer = null;
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('on'), 1800);
+}
+
+function lev(a, b) {
+  if (a === b) return 0;
+  const m = a.length, n = b.length;
+  if (!m || !n) return m || n;
+  let prev = Array.from({length: n + 1}, (_, j) => j);
+  for (let i = 1; i <= m; i++) {
+    const cur = [i];
+    for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    prev = cur;
+  }
+  return prev[n];
+}
+const normName = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+
+/* ================= on-device storage (IndexedDB, falls back to memory) ================= */
+const idb = (() => {
+  let dbp = null;
+  function open() {
+    if (!dbp) dbp = new Promise((res, rej) => {
+      if (!window.indexedDB) return rej(new Error('no idb'));
+      const r = indexedDB.open('cardscan', 1);
+      r.onupgradeneeded = () => { const d = r.result; d.createObjectStore('kv'); d.createObjectStore('photos'); };
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    });
+    return dbp;
+  }
+  async function run(store, mode, fn) {
+    const d = await open();
+    return new Promise((res, rej) => {
+      const t = d.transaction(store, mode);
+      const req = fn(t.objectStore(store));
+      t.oncomplete = () => res(req && 'result' in req ? req.result : undefined);
+      t.onerror = () => rej(t.error);
+      t.onabort = () => rej(t.error);
+    });
+  }
+  return {
+    get: (s, k) => run(s, 'readonly', st => st.get(k)),
+    put: (s, k, v) => run(s, 'readwrite', st => st.put(v, k)),
+    del: (s, k) => run(s, 'readwrite', st => st.delete(k)),
+    async all(s) {
+      const d = await open();
+      return new Promise((res, rej) => {
+        const out = {}, t = d.transaction(s, 'readonly'), c = t.objectStore(s).openCursor();
+        c.onsuccess = () => { const cur = c.result; if (cur) { out[cur.key] = cur.value; cur.continue(); } };
+        t.oncomplete = () => res(out);
+        t.onerror = () => rej(t.error);
+      });
+    }
+  };
+})();
+
+let canSave = true;
+let state = {buckets: [], active: null};
+const photos = {};          // uid -> small data URL thumbnail
+const scanImages = new Map(); // uid -> full canvas, kept in memory so a scan can be retried
+
+function bucketOf(id) { return state.buckets.find(b => b.id === id); }
+function activeBucket() { return bucketOf(state.active) || state.buckets[0]; }
+function findItem(uid) {
+  for (const b of state.buckets) { const it = b.items.find(x => x.uid === uid); if (it) return {b, it}; }
+  return null;
+}
+
+let saveTimer = null;
+function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 350); }
+async function saveNow() {
+  if (!canSave) return;
+  try { await idb.put('kv', 'state', JSON.parse(JSON.stringify(state))); }
+  catch (e) { canSave = false; toast("Can't save on this phone (private browsing?)"); }
+}
+function savePhoto(uid, url) { photos[uid] = url; if (canSave) idb.put('photos', uid, url).catch(() => {}); }
+function dropPhoto(uid) { delete photos[uid]; scanImages.delete(uid); if (canSave) idb.del('photos', uid).catch(() => {}); }
+
+function makeBucket(name) {
+  const n = state.buckets.length + 1;
+  return {id: newId(), name: name || `Lot ${n} · ${new Date().toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}`,
+    created: Date.now(), notes: '', paid: null, offerPct: clamp(Number(ls.get('defaultPct', 70)) || 70, 0, 100), minValue: 0, items: []};
+}
+
+async function loadState() {
+  let saved = null;
+  try { saved = await idb.get('kv', 'state'); Object.assign(photos, await idb.all('photos')); }
+  catch (e) { canSave = false; }
+  if (saved && Array.isArray(saved.buckets)) state = saved;
+  // Bring over cards from the earlier single-list version of the app.
+  const old = ls.get('scanItems', null);
+  if (Array.isArray(old) && old.length) {
+    const b = makeBucket('First scans');
+    old.forEach(it => {
+      if (!it.card) return;
+      const uid = it.uid || newId();
+      if (it.photo) savePhoto(uid, it.photo);
+      b.items.push({uid, status: 'done', card: it.card, printing: it.printing, confidence: it.confidence, confirmed: it.confirmed, cands: it.cands || [], added: it.added || Date.now()});
+    });
+    if (b.items.length) state.buckets.push(b);
+    ls.del('scanItems');
+  }
+  if (!state.buckets.length) state.buckets.push(makeBucket());
+  if (!bucketOf(state.active)) state.active = state.buckets[0].id;
+  state.buckets.forEach(b => b.items.forEach(it => {
+    if (it.status === 'reading' || it.status === 'lookup') { it.status = 'failed'; it.error = 'Scan was interrupted. Tap to pick the card.'; }
+  }));
+  saveSoon();
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+}
+
+/* ================= card numbers & names ================= */
+const SUBSET_PREFIXES = ['TG', 'GG', 'RC', 'SV', 'SH', 'SL', 'H'];
+const fixDigits = s => s.replace(/[OoIlSB]/g, ch => ({O: '0', o: '0', I: '1', l: '1', S: '5', B: '8'})[ch]);
+
+function splitPrefix(prefix, digits) {
+  if (prefix && SUBSET_PREFIXES.includes(prefix.toUpperCase())) return {prefix: prefix.toUpperCase(), digits: fixDigits(digits)};
+  let tail = '';
+  for (let i = prefix.length - 1; i >= 0 && /[OoIlSB]/.test(prefix[i]) && tail.length + digits.length < 3; i--) tail = prefix[i] + tail;
+  return {prefix: '', digits: fixDigits(tail + digits)};
+}
+
+// Finds a collector number like 025/198, TG05/TG30 or 4/102 in text.
+function parseNumber(text) {
+  if (!text) return null;
+  const re = /(^|[^A-Za-z0-9])([A-Za-z]{0,4})([0-9OoIlSB]{1,3})([a-z]?)\s{0,2}[\/\\|]\s{0,2}([A-Za-z]{0,4})([0-9OoIlSB]{2,3})(?![0-9])/g;
+  let m;
+  while ((m = re.exec(text))) {
+    const [, , pre, nRaw, suffix, tPre, tRaw] = m;
+    if (!/\d/.test(nRaw) || !/\d/.test(tRaw)) continue;
+    const n = splitPrefix(pre, nRaw), t = splitPrefix(tPre, tRaw);
+    if (!/^\d+$/.test(n.digits) || !/^\d+$/.test(t.digits)) continue;
+    const num = parseInt(n.digits, 10), total = parseInt(t.digits, 10);
+    if (!num || total < 10 || total > 400 || num > total + 160) continue;
+    return {prefix: n.prefix, digits: n.digits, suffix, total, label: `${n.prefix}${n.digits}${suffix}/${t.prefix}${t.digits}`};
+  }
+  return null;
+}
+
+// Collector number as the AI read it, e.g. number "025" total "198", or "SWSH050" with no total.
+function numFromAi(number, total) {
+  const n = String(number || '').toUpperCase().replace(/\s+/g, '');
+  const m = n.match(/^([A-Z]*)(\d+)([A-Z]?)$/);
+  if (!m) return null;
+  const t = (String(total || '').match(/\d+/) || [])[0];
+  return {prefix: m[1], digits: m[2], suffix: m[3].toLowerCase(), total: t ? parseInt(t, 10) : null,
+    label: n + (total ? '/' + String(total).toUpperCase().replace(/\s+/g, '') : '')};
+}
+
+function numberClause(num) {
+  const stripped = num.digits.replace(/^0+(?=\d)/, '');
+  const v = new Set([num.prefix + stripped + num.suffix, num.prefix + num.digits + num.suffix, num.prefix + stripped.padStart(2, '0') + num.suffix]);
+  if (num.prefix && !SUBSET_PREFIXES.includes(num.prefix)) { v.add(stripped + num.suffix); v.add(num.digits + num.suffix); }
+  return '(' + [...v].map(x => `number:"${x}"`).join(' OR ') + ')';
+}
+const normNumStr = s => String(s || '').replace(/^([A-Za-z]*)0*(\d)/, '$1$2').toLowerCase();
+const normNum = num => normNumStr(num.prefix + num.digits + num.suffix);
+
+const STOP = new Set(('basic stage evolves evolve from trainer item supporter stadium tool pokemon pokémon put this card onto when your ' +
+  'opponent active bench damage attack ability weakness resistance retreat illus rule the and with energy tera mega').split(' '));
+function guessName(text) {
+  for (const line of (text || '').split('\n')) {
+    const toks = (line.match(/[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’.\-]{2,}/g) || [])
+      .filter(w => /^[A-ZÀ-Þ][a-zà-ÿ'’.\-]{2,}$/.test(w) && !STOP.has(w.toLowerCase()));
+    if (toks.length) return toks[0].replace(/[.\-'’]+$/, '');
+  }
+  return '';
+}
+function nameClause(s) {
+  const words = (s || '').toLowerCase().replace(/[^a-zà-ÿ0-9'’.\- ]/g, ' ').trim().split(/\s+/).filter(Boolean);
+  if (!words.length) return '';
+  if (words.length === 1) return `name:${words[0].replace(/['’.\-]/g, '')}*`;
+  return `name:"${words.join(' ').replace(/"/g, '')}"`;
+}
+
+/* ================= card data ================= */
+const PRINTINGS = {
+  normal: 'Normal', holofoil: 'Holofoil', reverseHolofoil: 'Reverse Holo', '1stEditionHolofoil': '1st Ed. Holo',
+  '1stEditionNormal': '1st Edition', unlimitedHolofoil: 'Unlimited Holo', '1stEdition': '1st Edition', unlimited: 'Unlimited'
+};
+const ORDER = ['holofoil', 'normal', 'reverseHolofoil', '1stEditionHolofoil', '1stEditionNormal', 'unlimitedHolofoil', '1stEdition', 'unlimited'];
+const orderIdx = k => { const i = ORDER.indexOf(k); return i < 0 ? 99 : i; };
+
+function slim(c) {
+  const set = c.set || {};
+  return {
+    id: c.id, name: c.name, number: String(c.number || ''), rarity: c.rarity || '',
+    setName: set.name || '', setCode: set.ptcgoCode || (set.id || '').toUpperCase(), printedTotal: set.printedTotal || '',
+    releaseDate: set.releaseDate || '', img: (c.images || {}).small || '', imgLarge: (c.images || {}).large || '',
+    tcgUrl: (c.tcgplayer || {}).url || '', updatedAt: (c.tcgplayer || {}).updatedAt || '',
+    prices: (c.tcgplayer || {}).prices || {}
+  };
+}
+const printingKeys = c => Object.keys(c.prices || {}).sort((a, b) => orderIdx(a) - orderIdx(b));
+function defaultPrinting(c) {
+  const keys = printingKeys(c);
+  return keys.find(k => typeof (c.prices[k] || {}).market === 'number') || keys[0] || '';
+}
+function printingFromFinish(c, finish, first) {
+  const keys = printingKeys(c), has = k => keys.includes(k);
+  if (first) {
+    if (finish === 'holo' && has('1stEditionHolofoil')) return '1stEditionHolofoil';
+    if (has('1stEditionNormal')) return '1stEditionNormal';
+    if (has('1stEdition')) return '1stEdition';
+  }
+  if (finish === 'reverse_holo' && has('reverseHolofoil')) return 'reverseHolofoil';
+  if (finish === 'holo') { if (has('holofoil')) return 'holofoil'; if (has('unlimitedHolofoil')) return 'unlimitedHolofoil'; }
+  if (finish === 'non_holo') { if (has('normal')) return 'normal'; if (has('unlimited')) return 'unlimited'; }
+  return defaultPrinting(c);
+}
+function fmtNum(c) {
+  if (!c.printedTotal) return c.number;
+  const pre = (c.number.match(/^[A-Z]+/) || [''])[0];
+  if (pre && !SUBSET_PREFIXES.includes(pre)) return c.number;
+  return `${c.number}/${pre}${c.printedTotal}`;
+}
+const tcgUrl = c => c.tcgUrl || 'https://www.tcgplayer.com/search/pokemon/product?productLineName=pokemon&q=' + encodeURIComponent(`${c.name} ${c.setName}`);
+const marketOf = it => it.card && it.printing ? (it.card.prices[it.printing] || {}).market : undefined;
+
+/* ================= matching ================= */
+function scoreCards(cards, h) {
+  const text = h.text || '';
+  const upper = new Set(text.toUpperCase().match(/[A-Z]{2,5}/g) || []);
+  if (h.setCode) upper.add(String(h.setCode).toUpperCase());
+  const words = text.toLowerCase().match(/[a-zà-ÿ]{3,}/g) || [];
+  const fullName = normName(h.name);
+  const setWords = new Set(normName(h.setName).split(' ').filter(w => w.length >= 3));
+  const want = h.num ? normNum(h.num) : '';
+  return cards.map(c => {
+    const code = (c.setCode || '').toUpperCase();
+    const codeMatch = !!code && upper.has(code);
+    const first = c.name.toLowerCase().split(/[\s\-]/)[0].replace(/[^a-zà-ÿ]/g, '');
+    const nameExact = !!fullName && normName(c.name) === fullName;
+    const nameMatch = nameExact || (first.length >= 3 && words.some(w => w === first || (first.length > 4 && lev(w, first) <= 2)));
+    const numMatch = !!h.num && normNumStr(c.number) === want && (!h.num.total || !c.printedTotal || Number(c.printedTotal) === h.num.total);
+    const sw = normName(c.setName).split(' ').filter(w => w.length >= 3);
+    const setMatch = setWords.size > 0 && sw.length > 0 && sw.filter(w => setWords.has(w)).length / sw.length >= 0.5;
+    const s = (numMatch ? 4 : 0) + (codeMatch ? 3 : 0) + (nameExact ? 3.5 : nameMatch ? 3 : 0) + (setMatch ? 1.5 : 0) + (printingKeys(c).length ? 0.5 : 0);
+    return {c, s, numMatch, codeMatch, nameMatch, setMatch};
+  }).sort((a, b) => b.s - a.s || String(b.c.releaseDate).localeCompare(String(a.c.releaseDate)));
+}
+
+function confidence(scored, readable) {
+  const [best, second] = scored;
+  if (!best) return 0;
+  let p = 15 + (best.numMatch ? 40 : 0) + (best.nameMatch ? 25 : 0) + ((best.codeMatch || best.setMatch) ? 20 : 0);
+  if (second && Math.floor(second.s) === Math.floor(best.s)) p = Math.min(p, 55);
+  if (readable === 'low') p = Math.min(p, 60);
+  return clamp(p, 5, 99);
+}
+
+/* ================= card database (pokemontcg.io) ================= */
+async function searchCards(q, pageSize = 36) {
+  const params = new URLSearchParams({q, pageSize: String(pageSize), orderBy: '-set.releaseDate', select: 'id,name,number,rarity,set,images,tcgplayer'});
+  const headers = {};
+  const key = ls.get('tcgKey', '');
+  if (key) headers['X-Api-Key'] = key;
+  let res;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try { res = await fetch(`${CARDS_API}?${params}`, {headers}); }
+    catch (e) { if (attempt < 2) { await sleep(800 * (attempt + 1)); continue; } throw new Error("Couldn't reach the card database. Check your connection."); }
+    if (res.status >= 500 && attempt < 2) { await sleep(800 * (attempt + 1)); continue; }
+    break;
+  }
+  if (res.status === 429) throw new Error('Card lookup limit reached. Add a Pokémon TCG API key in Settings.');
+  if (!res.ok) throw new Error(`Card database error (${res.status}). Try again.`);
+  const json = await res.json();
+  return (json.data || []).map(slim);
+}
+
+async function cardsByIds(ids) {
+  const out = {};
+  const uniq = [...new Set(ids)].filter(Boolean);
+  for (let i = 0; i < uniq.length; i += 40) {
+    const chunk = uniq.slice(i, i + 40);
+    const cards = await searchCards(chunk.map(id => `id:"${id}"`).join(' OR '), 250);
+    cards.forEach(c => { out[c.id] = c; });
+  }
+  return out;
+}
+
+function mergeCards(a, b) {
+  const seen = new Set(a.map(c => c.id));
+  return a.concat(b.filter(c => !seen.has(c.id)));
+}
+
+async function findCards({num, name}) {
+  const nc = nameClause(name);
+  let cards = [];
+  if (num && num.total) cards = await searchCards(`${numberClause(num)} set.printedTotal:${num.total}`);
+  const nameHit = name && cards.some(c => normName(c.name) === normName(name) || normName(c.name).split(' ')[0] === normName(name).split(' ')[0]);
+  if (num && nc && !nameHit) cards = mergeCards(cards, await searchCards(`${nc} ${numberClause(num)}`));
+  if (!cards.length && nc) cards = await searchCards(nc);
+  return cards;
+}
+
+async function findFromText(text) {
+  const num = parseNumber(' ' + text);
+  const namePart = text.replace(/[A-Za-z]{0,4}[0-9]{1,3}[a-z]?\s*\/\s*[A-Za-z]{0,4}[0-9]{1,3}/, ' ').replace(/#\s*\d+/, ' ').trim();
+  const nc = nameClause(namePart);
+  let cards = [];
+  if (num) {
+    cards = await searchCards(`${nc} ${numberClause(num)} set.printedTotal:${num.total}`.trim());
+    if (!cards.length && nc) cards = await searchCards(`${nc} ${numberClause(num)}`);
+  }
+  if (!cards.length && nc) cards = await searchCards(nc);
+  return scoreCards(cards, {text: namePart, name: namePart, num}).map(x => x.c);
+}
+
+/* ================= AI recognition (Claude) ================= */
+const AI_PROMPT = `This photo shows one English-language Pokémon TCG card. It may be in a sleeve or toploader, tilted, or have glare. Identify the exact printing.
+
+Reply with only a JSON object and nothing else:
+{"found": true,
+ "name": "card name exactly as printed, including suffixes like ex, EX, GX, V, VMAX, VSTAR, BREAK, or owners like Team Rocket's / Misty's",
+ "number": "collector number as printed before the slash, e.g. 025, 4, TG05, GG12, SV49; or the promo code if there is no slash, e.g. SWSH050",
+ "total": "number printed after the slash, e.g. 198 or TG30, or null",
+ "set_code": "small set code printed near the number, e.g. SVI, PAL, OBF, or null",
+ "set_name": "your best guess of the expansion name",
+ "finish": "holo | reverse_holo | non_holo | unknown",
+ "first_edition": false,
+ "readable": "high | medium | low (how clearly you could read the collector number)"}
+
+If no Pokémon card is visible, reply {"found": false}.`;
+
+const aiKey = () => ls.get('aiKey', '');
+const aiModel = () => ls.get('aiModel', 'claude-haiku-5-5');
+
+function canvasToJpegB64(canvas, maxSide) {
+  const s = Math.min(1, maxSide / Math.max(canvas.width, canvas.height));
+  let c = canvas;
+  if (s < 1) {
+    c = document.createElement('canvas');
+    c.width = Math.round(canvas.width * s); c.height = Math.round(canvas.height * s);
+    const ctx = c.getContext('2d'); ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(canvas, 0, 0, c.width, c.height);
+  }
+  return c.toDataURL('image/jpeg', 0.88).split(',')[1];
+}
+
+async function callClaude(content, maxTokens, key = aiKey(), model = aiModel()) {
+  const body = {model, max_tokens: maxTokens, thinking: {type: 'disabled'}, messages: [{role: 'user', content}]};
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let res;
+    try {
+      res = await fetch(CLAUDE_API, {
+        method: 'POST',
+        headers: {'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true'},
+        body: JSON.stringify(body)
+      });
+    } catch (e) {
+      if (attempt < 2) { await sleep(1200 * (attempt + 1)); continue; }
+      throw new Error("Couldn't reach the AI. Check your connection.");
+    }
+    if (res.status === 401 || res.status === 403) throw new Error('AI key was rejected. Check it in Settings.');
+    if ((res.status === 429 || res.status === 529 || res.status >= 500) && attempt < 2) { await sleep(1500 * (attempt + 1)); continue; }
+    if (!res.ok) {
+      let msg = '';
+      try { msg = ((await res.json()).error || {}).message || ''; } catch (e) {}
+      if (res.status === 429 || res.status === 529) throw new Error('The AI is busy right now. Tap to retry or search.');
+      throw new Error('AI error: ' + (msg || res.status));
+    }
+    const j = await res.json();
+    return (j.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+  }
+}
+
+function parseAiJson(text) {
+  const a = text.indexOf('{'), b = text.lastIndexOf('}');
+  if (a < 0 || b <= a) throw new Error("The AI's answer couldn't be read. Tap to search.");
+  try { return JSON.parse(text.slice(a, b + 1)); }
+  catch (e) { throw new Error("The AI's answer couldn't be read. Tap to search."); }
+}
+
+async function identifyWithAI(it, canvas) {
+  const data = canvasToJpegB64(canvas, 1600);
+  const r = parseAiJson(await callClaude([
+    {type: 'image', source: {type: 'base64', media_type: 'image/jpeg', data}},
+    {type: 'text', text: AI_PROMPT}
+  ], 400));
+  if (!r || r.found === false || !r.name) throw new Error('No card found in the photo. Tap to search.');
+  const num = numFromAi(r.number, r.total);
+  it.read = [r.name, num && num.label].filter(Boolean).join(' · ');
+  it.finish = r.finish || 'unknown';
+  it.first = !!r.first_edition;
+  it.status = 'lookup'; renderItem(it);
+  const cards = await findCards({num, name: r.name});
+  if (!cards.length) throw new Error(`No match for “${it.read}”. Tap to search.`);
+  const scored = scoreCards(cards, {text: `${r.name} ${r.set_code || ''}`, name: r.name, setCode: r.set_code, setName: r.set_name, num});
+  return {scored, readable: r.readable};
+}
+
+/* ================= free text reader (Tesseract.js) ================= */
+let workerPromise = null, ocrReady = false;
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = resolve;
+    s.onerror = () => reject(new Error("Couldn't load the text reader. Check your connection."));
+    document.head.appendChild(s);
+  });
+}
+function getWorker() {
+  if (!workerPromise) {
+    workerPromise = (async () => {
+      if (!window.Tesseract) await loadScript(TESSERACT_URL);
+      const w = await window.Tesseract.createWorker('eng', 1);
+      await w.setParameters({tessedit_pageseg_mode: '11'});
+      ocrReady = true; updateChip();
+      return w;
+    })();
+    workerPromise.catch(() => { workerPromise = null; updateChip(); });
+  }
+  return workerPromise;
+}
+let ocrChain = Promise.resolve();
+function ocr(canvas) {
+  // One reader, one page at a time.
+  const run = ocrChain.then(async () => { const w = await getWorker(); return (await w.recognize(canvas)).data.text || ''; });
+  ocrChain = run.catch(() => {});
+  return run;
+}
+function prep(src, x, y, w, h, targetWidth) {
+  x = Math.round(x); y = Math.round(y); w = Math.round(w); h = Math.round(h);
+  const scale = targetWidth ? Math.max(1, targetWidth / w) : 1;
+  const c = document.createElement('canvas');
+  c.width = Math.round(w * scale); c.height = Math.round(h * scale);
+  const ctx = c.getContext('2d', {willReadFrequently: true});
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(src, x, y, w, h, 0, 0, c.width, c.height);
+  const img = ctx.getImageData(0, 0, c.width, c.height), p = img.data, hist = new Uint32Array(256);
+  for (let i = 0; i < p.length; i += 4) { const g = (p[i] * 0.299 + p[i + 1] * 0.587 + p[i + 2] * 0.114) | 0; p[i] = g; hist[g]++; }
+  const n = c.width * c.height;
+  let lo = 0, hi = 255, acc = 0;
+  for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc > n * 0.02) { lo = v; break; } }
+  acc = 0;
+  for (let v = 255; v >= 0; v--) { acc += hist[v]; if (acc > n * 0.02) { hi = v; break; } }
+  const range = Math.max(1, hi - lo);
+  for (let i = 0; i < p.length; i += 4) { let g = (p[i] - lo) * 255 / range; g = g < 0 ? 0 : g > 255 ? 255 : g; p[i] = p[i + 1] = p[i + 2] = g; }
+  ctx.putImageData(img, 0, 0);
+  return c;
+}
+
+async function identifyWithOCR(it, canvas) {
+  const W = canvas.width, H = canvas.height;
+  const bottomText = await ocr(prep(canvas, 0, H * 0.70, W, H * 0.30, 2400));
+  let num = parseNumber(bottomText);
+  const topText = await ocr(prep(canvas, 0, 0, W, H * 0.25, 2000));
+  let allText = bottomText + '\n' + topText;
+  if (!num) {
+    const wholeText = await ocr(prep(canvas, 0, 0, W, H, Math.min(1800, W * 2)));
+    allText += '\n' + wholeText;
+    num = parseNumber(wholeText);
+  }
+  const name = guessName(topText) || guessName(allText);
+  it.read = [name, num && num.label].filter(Boolean).join(' · ');
+  if (!num && !name) throw new Error("Couldn't read the card. Tap to search for it.");
+  it.status = 'lookup'; renderItem(it);
+  let cards = [];
+  if (num) {
+    cards = await searchCards(`${numberClause(num)} set.printedTotal:${num.total}`);
+    if (!cards.length && name) cards = await searchCards(`${nameClause(name)} ${numberClause(num)}`);
+  }
+  if (!cards.length && name) cards = await searchCards(nameClause(name));
+  if (!cards.length) throw new Error(`No match for “${it.read}”. Tap to search.`);
+  return {scored: scoreCards(cards, {text: allText, num}), readable: null};
+}
+
+/* ================= scan queue ================= */
+const queue = [];
+let running = 0;
+function trimScanImages() {
+  for (const uid of scanImages.keys()) {
+    if (scanImages.size <= 60) break;
+    const f = findItem(uid);
+    if (!f || (f.it.status !== 'reading' && f.it.status !== 'lookup')) scanImages.delete(uid);
+  }
+}
+
+function enqueue(canvas, thumb, bucketId) {
+  const b = bucketOf(bucketId) || activeBucket();
+  const it = {uid: newId(), status: 'reading', added: Date.now()};
+  savePhoto(it.uid, thumb);
+  scanImages.set(it.uid, canvas);
+  trimScanImages();
+  b.items.unshift(it);
+  if (b.id === state.active) { renderItem(it, true); $('list').scrollTop = 0; }
+  renderSummary();
+  queue.push(it.uid);
+  pump();
+}
+
+function pump() {
+  const limit = aiKey() ? AI_CONCURRENCY : 1;
+  while (running < limit && queue.length) {
+    const uid = queue.shift();
+    running++;
+    processScan(uid).finally(() => { running--; updateChip(); pump(); });
+  }
+  updateChip();
+}
+
+async function processScan(uid) {
+  const found = findItem(uid);
+  const canvas = scanImages.get(uid);
+  if (!found) return;
+  const it = found.it;
+  if (!canvas) { it.status = 'failed'; it.error = 'Photo no longer available. Tap to search.'; saveSoon(); renderItem(it); return; }
+  it.status = 'reading'; it.error = ''; renderItem(it);
+  try {
+    const {scored, readable} = aiKey() ? await identifyWithAI(it, canvas) : await identifyWithOCR(it, canvas);
+    it.card = scored[0].c;
+    it.printing = printingFromFinish(it.card, it.finish, it.first);
+    it.confidence = confidence(scored, readable);
+    it.confirmed = false;
+    it.cands = scored.slice(0, 12).map(x => x.c);
+    it.status = 'done';
+  } catch (e) {
+    it.status = 'failed';
+    it.error = e.message || 'Something went wrong.';
+  }
+  saveSoon();
+  renderItem(it);
+  renderSummary();
+  if (sheet.mode === 'change' && sheet.uid === uid && $('bs').open) renderChangeSheet();
+}
+
+/* ================= bucket math ================= */
+function bucketStats(b) {
+  let market = 0, eligible = 0, under = 0, underValue = 0, priced = 0, pending = 0;
+  const min = b.minValue || 0;
+  b.items.forEach(it => {
+    if (it.status === 'reading' || it.status === 'lookup') pending++;
+    const m = marketOf(it);
+    if (typeof m !== 'number') return;
+    priced++;
+    market += m;
+    if (m >= min) eligible += m; else { under++; underValue += m; }
+  });
+  const pct = clamp(Number(b.offerPct) || 0, 0, 100);
+  const offer = eligible * pct / 100;
+  const paid = typeof b.paid === 'number' ? b.paid : null;
+  return {count: b.items.length, priced, pending, market, eligible, under, underValue, pct, offer, paid,
+    profit: paid == null ? null : market - paid, paidPct: paid == null || !market ? null : paid / market * 100};
+}
+const itemOffer = (b, it) => { const m = marketOf(it); return typeof m === 'number' && m >= (b.minValue || 0) ? m * (Number(b.offerPct) || 0) / 100 : 0; };
+
+/* ================= rendering ================= */
+function confHtml(it) {
+  if (it.confirmed) return '<span class="conf g">✓ Picked</span>';
+  if (typeof it.confidence !== 'number') return '';
+  const cls = it.confidence >= 75 ? 'g' : it.confidence >= 50 ? 'a' : 'r';
+  return `<span class="conf ${cls}">${it.confidence}%</span>`;
+}
+
+function itemHtml(b, it) {
+  const ph = photos[it.uid];
+  const shot = ph ? `<img src="${esc(ph)}" alt="Your photo">` : `<div class="ph">${ICON_SEARCH}</div>`;
+  let match, title, sub, extra = '', meta;
+  if (it.status === 'reading' || it.status === 'lookup') {
+    match = '<div class="ph"><div class="spin"></div></div>';
+    title = it.status === 'reading' ? 'Identifying card…' : 'Finding price…';
+    sub = esc(it.read || 'Hang on a second');
+    meta = '';
+  } else if (it.status === 'failed' || !it.card) {
+    match = '<div class="ph">?</div>';
+    title = "Couldn't identify";
+    sub = esc(it.error || 'Tap to search for it');
+    meta = `<button class="change" type="button">${ICON_SEARCH} Fix</button>`;
+  } else {
+    const c = it.card;
+    const io = itemOffer(b, it), m = marketOf(it);
+    match = c.img ? `<img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy">` : '<div class="ph">?</div>';
+    title = `${esc(c.name)} – ${esc(fmtNum(c))}`;
+    sub = `${esc(c.setCode)} · ${esc(c.setName)} · ${esc(PRINTINGS[it.printing] || it.printing || 'No price')}`;
+    extra = `<div class="prow"><span class="pill">${money(m)}</span><span class="ioffer">${typeof m === 'number' ? (m < (b.minValue || 0) ? 'Skipped (under min)' : `Offer <b>${money(io)}</b>`) : ''}</span></div>`;
+    meta = `<button class="change" type="button">${ICON_CHANGE} Change</button>${confHtml(it)}`;
+  }
+  return `<div class="item" data-uid="${esc(it.uid)}">
+    <div class="thumbs">${shot}${match}</div>
+    <div class="info"><div class="title">${title}</div><div class="sub">${sub}</div>${extra}</div>
+    <div class="meta2">${meta}</div>
+  </div>`;
+}
+
+function renderItem(it, prepend) {
+  const found = findItem(it.uid);
+  if (!found || found.b.id !== state.active) return;
+  const html = itemHtml(found.b, it);
+  const el = $('items').querySelector(`.item[data-uid="${CSS.escape(it.uid)}"]`);
+  if (el) { el.outerHTML = html; return; }
+  const empty = $('items').querySelector('.empty');
+  if (empty) empty.remove();
+  $('items').insertAdjacentHTML(prepend ? 'afterbegin' : 'beforeend', html);
+}
+
+function renderItems() {
+  const b = activeBucket();
+  $('items').innerHTML = b.items.length ? b.items.map(it => itemHtml(b, it)).join('')
+    : '<div class="empty">Line up a card inside the frame and tap to scan.<br>Cards you scan go into this bucket.</div>';
+}
+
+function refreshItemOffers() {
+  const b = activeBucket();
+  $('items').querySelectorAll('.item').forEach(el => {
+    const it = b.items.find(x => x.uid === el.dataset.uid);
+    const span = el.querySelector('.ioffer');
+    if (!it || !span) return;
+    const m = marketOf(it);
+    span.innerHTML = typeof m === 'number' ? (m < (b.minValue || 0) ? 'Skipped (under min)' : `Offer <b>${money(itemOffer(b, it))}</b>`) : '';
+  });
+}
+
+function renderSummary(skip) {
+  const b = activeBucket(), s = bucketStats(b);
+  $('bucketLabel').textContent = b.name;
+  $('sum').innerHTML = `${s.count}<span class="sep">•</span><em>${money(s.market)}</em>`;
+  $('offerLine').innerHTML = `<span class="o">Offer ${pctFmt(s.pct)}% · <b>${money(s.offer)}</b></span><span>${s.paid != null ? `Paid <b>${money(s.paid)}</b>` : 'Tap for calculator'}</span>`;
+  $('stMarket').textContent = money(s.market);
+  $('stCount').textContent = `${s.count} card${s.count === 1 ? '' : 's'}${s.pending ? ` · ${s.pending} scanning` : ''}`;
+  $('stPaidPct').textContent = s.paidPct != null ? `${s.paidPct.toFixed(1)}% of market` : 'tap to enter';
+  const pr = $('stProfit');
+  pr.textContent = s.profit != null ? money(s.profit) : '—';
+  pr.className = s.profit == null ? '' : s.profit >= 0 ? 'pos' : 'neg';
+  $('stMargin').textContent = s.profit != null && s.market ? `${(s.profit / s.market * 100).toFixed(1)}% of market` : 'enter what you paid';
+  if (skip !== 'pct' && document.activeElement !== $('pctInput')) $('pctInput').value = pctFmt(s.pct);
+  $('pctRange').value = Math.round(s.pct);
+  if (skip !== 'offer' && document.activeElement !== $('offerInput')) $('offerInput').value = num2(s.offer);
+  if (skip !== 'min' && document.activeElement !== $('minInput')) $('minInput').value = b.minValue ? String(b.minValue) : '';
+  if (skip !== 'paid' && document.activeElement !== $('paidInput')) $('paidInput').value = s.paid != null ? num2(s.paid) : '';
+  $('minInfo').textContent = s.under ? `${s.under} skipped (${money(s.underValue)})` : '';
+  $('eligInfo').textContent = s.eligible !== s.market ? `on ${money(s.eligible)}` : '';
+  $('presets').querySelectorAll('button').forEach(btn => btn.classList.toggle('on', Number(btn.dataset.p) === s.pct));
+  updateChip();
+}
+
+function renderBucketPanel() {
+  const b = activeBucket();
+  $('bName').value = b.name;
+  $('bDate').textContent = `Started ${fmtDate(b.created)}`;
+  $('notes').value = b.notes || '';
+}
+
+function renderAll() {
+  renderBucketPanel();
+  renderItems();
+  renderSummary();
+}
+
+/* ================= camera ================= */
+let stream = null, track = null, torchOn = false, lastTap = 0;
+
+function showCamError(msg) { $('camErrText').textContent = msg; $('camErr').hidden = false; updateChip(); }
+
+async function startCamera() {
+  stopCamera();
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    showCamError(window.isSecureContext === false
+      ? 'The live camera only works when this page is opened from an https:// link. You can still scan from a photo (top right) or search.'
+      : "This browser can't open the camera. You can still scan from a photo (top right) or search.");
+    return;
+  }
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({audio: false, video: {facingMode: {ideal: 'environment'}, width: {ideal: 3840}, height: {ideal: 2160}}});
+    const v = $('video');
+    v.srcObject = stream;
+    await v.play().catch(() => {});
+    track = stream.getVideoTracks()[0];
+    $('camErr').hidden = true;
+    let caps = {};
+    try { caps = track.getCapabilities ? track.getCapabilities() : {}; } catch (e) {}
+    $('torchBtn').hidden = !caps.torch;
+    torchOn = false; $('torchBtn').classList.remove('on');
+    layoutGuide();
+  } catch (e) {
+    showCamError(e && e.name === 'NotAllowedError'
+      ? 'Camera access is blocked. Allow camera access for this site, then tap Try again.'
+      : e && e.name === 'NotFoundError' ? 'No camera found. You can still scan from a photo or search.'
+      : "Couldn't start the camera. Tap Try again.");
+  }
+  updateChip();
+}
+function stopCamera() { if (stream) stream.getTracks().forEach(t => t.stop()); stream = null; track = null; }
+
+function layoutGuide() {
+  const cam = $('cam'), g = $('guide');
+  const w = cam.clientWidth, h = cam.clientHeight;
+  const top = 46, bottom = 34, availH = h - top - bottom;
+  if (availH < 120) { g.hidden = true; $('tapHint').hidden = true; return; }
+  g.hidden = false;
+  $('tapHint').hidden = !!ls.get('tapTipSeen', false);
+  const gh = Math.min(availH, (w * 0.84) * 88 / 63), gw = gh * 63 / 88;
+  Object.assign(g.style, {width: gw + 'px', height: gh + 'px', left: (w - gw) / 2 + 'px', top: top + (availH - gh) / 2 + 'px'});
+}
+
+function grabFrame() {
+  const v = $('video'), vw = v.videoWidth, vh = v.videoHeight;
+  if (!vw || !vh) return null;
+  const er = $('cam').getBoundingClientRect(), gr = $('guide').getBoundingClientRect();
+  const scale = Math.max(er.width / vw, er.height / vh);
+  const ox = (er.width - vw * scale) / 2, oy = (er.height - vh * scale) / 2;
+  const m = 0.04;
+  let sx = (gr.left - er.left - gr.width * m - ox) / scale, sy = (gr.top - er.top - gr.height * m - oy) / scale;
+  let sw = gr.width * (1 + 2 * m) / scale, sh = gr.height * (1 + 2 * m) / scale;
+  sx = Math.max(0, sx); sy = Math.max(0, sy); sw = Math.min(vw - sx, sw); sh = Math.min(vh - sy, sh);
+  const c = document.createElement('canvas');
+  c.width = Math.round(sw); c.height = Math.round(sh);
+  c.getContext('2d').drawImage(v, sx, sy, sw, sh, 0, 0, c.width, c.height);
+  return c;
+}
+
+function thumbUrl(c, w = 120) {
+  const t = document.createElement('canvas');
+  t.width = w; t.height = Math.round(c.height * w / c.width);
+  t.getContext('2d').drawImage(c, 0, 0, t.width, t.height);
+  return t.toDataURL('image/jpeg', 0.7);
+}
+
+function captureNow() {
+  const now = Date.now();
+  if (now - lastTap < 450) return;
+  lastTap = now;
+  const c = grabFrame();
+  if (!c) return;
+  const f = $('flash');
+  f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
+  if (!ls.get('tapTipSeen', false)) { ls.set('tapTipSeen', true); $('tapHint').hidden = true; }
+  enqueue(c, thumbUrl(c), state.active);
+}
+
+function updateChip() {
+  let pending = 0;
+  state.buckets.forEach(b => b.items.forEach(it => { if (it.status === 'reading' || it.status === 'lookup') pending++; }));
+  const ai = !!aiKey();
+  let text, ok = false;
+  if (!$('camErr').hidden) text = 'Camera off';
+  else if (!stream) text = 'Starting camera…';
+  else if (!ai && !ocrReady) text = pending ? `Getting reader ready · ${pending} waiting` : 'Getting text reader ready…';
+  else if (pending) text = `Identifying ${pending} card${pending > 1 ? 's' : ''}…`;
+  else { text = `Ready · ${ai ? 'AI' : 'text reader'} · tap to scan`; ok = true; }
+  $('chipText').textContent = text;
+  $('chipDot').classList.toggle('ok', ok);
+}
+
+/* ================= dialogs ================= */
+function ask({title, text, input, okLabel, danger}) {
+  return new Promise(resolve => {
+    $('askTitle').textContent = title;
+    $('askText').textContent = text || '';
+    $('askText').hidden = !text;
+    const inp = $('askInput');
+    inp.hidden = input == null;
+    inp.value = input || '';
+    $('askOk').textContent = okLabel || 'OK';
+    $('askOk').style.color = danger ? 'var(--bad)' : '';
+    let settled = false;
+    const done = v => { if (settled) return; settled = true; $('askOk').onclick = $('askCancel').onclick = $('askDlg').onclose = null; if ($('askDlg').open) $('askDlg').close(); resolve(v); };
+    $('askDlg').onclose = () => done(null);
+    $('askOk').onclick = () => done(input == null ? true : inp.value.trim());
+    $('askCancel').onclick = () => done(null);
+    $('askDlg').showModal();
+    if (input != null) setTimeout(() => { inp.focus(); inp.select(); }, 50);
+  });
+}
+
+const sheet = {mode: null, uid: null, results: null, msg: '', query: ''};
+
+function candHtml(c, on) {
+  const p = (c.prices || {})[defaultPrinting(c)] || {};
+  return `<button class="cand${on ? ' on' : ''}" type="button" data-id="${esc(c.id)}">
+    ${c.img ? `<img loading="lazy" alt="" src="${esc(c.img)}">` : '<img alt="">'}
+    <span>${esc(c.name)}<br><small>${esc(c.setCode)} · ${esc(fmtNum(c))}</small><br><em>${money(p.market)}</em></span>
+  </button>`;
+}
+const searchFormHtml = ph => `<form class="s" id="bsSearch" autocomplete="off"><input id="bsQ" type="search" placeholder="${esc(ph)}" aria-label="Search cards"><button type="submit">Search</button></form>`;
+
+function wireSheetSearch(onResults, focus) {
+  const form = $('bsSearch'), input = $('bsQ');
+  if (sheet.query) input.value = sheet.query;
+  if (focus && !sheet.results) setTimeout(() => input.focus(), 60);
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const q = input.value.trim();
+    if (!q) return;
+    sheet.query = q;
+    input.blur();
+    sheet.msg = 'Searching…'; sheet.results = null; onResults();
+    try {
+      const res = await findFromText(q);
+      sheet.results = res;
+      sheet.msg = res.length ? '' : `No cards found for “${q}”. Check the spelling or try just the name.`;
+    } catch (err) { sheet.msg = err.message; }
+    onResults();
+  });
+}
+
+function renderChangeSheet() {
+  const found = findItem(sheet.uid);
+  if (!found) { $('bs').close(); return; }
+  const {b, it} = found;
+  $('bsTitle').textContent = 'Pick the right card';
+  let html = '';
+  const ph = photos[it.uid];
+  if (it.card) {
+    const c = it.card;
+    html += `<div class="compare">
+      ${ph ? `<img src="${esc(ph)}" alt="Your photo">` : ''}
+      <img src="${esc(c.imgLarge || c.img)}" alt="">
+      <div><div class="t">${esc(c.name)}</div><div class="s">${esc(c.setName)} · ${esc(fmtNum(c))}${c.rarity ? ' · ' + esc(c.rarity) : ''}</div>
+      <div class="s">${c.updatedAt ? 'Prices updated ' + esc(c.updatedAt) : ''}</div>
+      <a href="${esc(tcgUrl(c))}" target="_blank" rel="noopener">View on TCGplayer ›</a></div>
+    </div>`;
+    const keys = printingKeys(c);
+    html += '<div class="sec">Version</div>';
+    html += keys.length ? `<div class="chips">${keys.map(k => {
+      const p = c.prices[k] || {};
+      return `<button class="pchip${k === it.printing ? ' on' : ''}" type="button" data-p="${esc(k)}"><b>${money(p.market)}</b><span>${esc(PRINTINGS[k] || k)}</span></button>`;
+    }).join('')}</div>` : '<p class="note">No TCGplayer price on file for this card.</p>';
+  } else {
+    html += `<div class="compare">${ph ? `<img src="${esc(ph)}" alt="Your photo">` : ''}<div class="s">${esc(it.error || '')}${it.read ? '<br>Read: ' + esc(it.read) : ''}</div></div>`;
+  }
+  html += '<div class="sec">Search</div>' + searchFormHtml('Name and number, e.g. pikachu 25/198');
+  const list = sheet.results || it.cands || [];
+  html += `<div class="sec">${sheet.results ? 'Search results' : 'Other possible matches'}</div>`;
+  if (sheet.msg) html += `<p class="note">${esc(sheet.msg)}</p>`;
+  html += list.length ? `<div class="grid">${list.map(c => candHtml(c, it.card && c.id === it.card.id)).join('')}</div>`
+    : (sheet.msg ? '' : '<p class="note">Search above to find the card.</p>');
+  const others = state.buckets.filter(x => x.id !== b.id);
+  if (others.length) {
+    html += `<div class="sec">Move to another bucket</div><div class="row2"><select id="moveSel">${others.map(x => `<option value="${esc(x.id)}">${esc(x.name)}</option>`).join('')}</select><button type="button" id="moveBtn">Move</button></div>`;
+  }
+  if (scanImages.has(it.uid) && it.status !== 'reading' && it.status !== 'lookup') html += '<button class="wide row2" type="button" id="retryBtn" style="justify-content:center;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px;font-weight:650;cursor:pointer">Scan this photo again</button>';
+  html += '<button class="danger wide" type="button" id="removeBtn">Remove from bucket</button>';
+  $('bsBody').innerHTML = html;
+
+  $('bsBody').querySelectorAll('.pchip').forEach(el => el.addEventListener('click', () => {
+    it.printing = el.dataset.p; saveSoon(); renderItem(it); renderSummary(); renderChangeSheet();
+  }));
+  $('bsBody').querySelectorAll('.cand').forEach(el => el.addEventListener('click', () => {
+    const c = list.find(x => x.id === el.dataset.id);
+    if (!c) return;
+    it.card = c; it.printing = printingFromFinish(c, it.finish, it.first); it.confirmed = true; it.status = 'done'; it.error = '';
+    if (sheet.results) it.cands = sheet.results.slice(0, 12);
+    sheet.results = null; sheet.msg = '';
+    saveSoon(); renderItem(it); renderSummary(); renderChangeSheet();
+    $('bsBody').scrollTop = 0;
+  }));
+  if ($('moveBtn')) $('moveBtn').addEventListener('click', () => {
+    const to = bucketOf($('moveSel').value);
+    if (!to) return;
+    b.items = b.items.filter(x => x.uid !== it.uid);
+    to.items.unshift(it);
+    saveSoon(); renderAll(); $('bs').close();
+    toast(`Moved to ${to.name}`);
+  });
+  if ($('retryBtn')) $('retryBtn').addEventListener('click', () => {
+    it.status = 'reading'; renderItem(it); renderSummary(); $('bs').close();
+    queue.push(it.uid); pump();
+  });
+  $('removeBtn').addEventListener('click', () => {
+    b.items = b.items.filter(x => x.uid !== it.uid);
+    dropPhoto(it.uid);
+    saveSoon();
+    const el = $('items').querySelector(`.item[data-uid="${CSS.escape(it.uid)}"]`);
+    if (el) el.remove();
+    if (!b.items.length) renderItems();
+    renderSummary(); $('bs').close();
+  });
+  wireSheetSearch(renderChangeSheet);
+}
+
+function renderAddSheet() {
+  $('bsTitle').textContent = 'Search cards';
+  let html = searchFormHtml('e.g. charizard 4/102 or umbreon vmax');
+  html += `<p class="note">Adding to <b>${esc(activeBucket().name)}</b></p>`;
+  if (sheet.msg) html += `<p class="note">${esc(sheet.msg)}</p>`;
+  if (sheet.results && sheet.results.length) html += `<div class="sec">Tap a card to add it</div><div class="grid">${sheet.results.map(c => candHtml(c, false)).join('')}</div>`;
+  else if (!sheet.msg) html += '<p class="note">Type a name, a number like 25/198, or both.</p>';
+  $('bsBody').innerHTML = html;
+  $('bsBody').querySelectorAll('.cand').forEach(el => el.addEventListener('click', () => {
+    const c = sheet.results.find(x => x.id === el.dataset.id);
+    if (!c) return;
+    const b = activeBucket();
+    const it = {uid: newId(), status: 'done', card: c, printing: defaultPrinting(c), confirmed: true, cands: sheet.results.slice(0, 12), added: Date.now()};
+    b.items.unshift(it);
+    saveSoon(); renderItem(it, true); renderSummary();
+    toast(`Added ${c.name} · ${money(marketOf(it))}`);
+  }));
+  wireSheetSearch(renderAddSheet, true);
+}
+
+function renderBucketsSheet() {
+  $('bsTitle').textContent = 'Buckets';
+  let tMarket = 0, tPaid = 0, tCards = 0;
+  const rows = state.buckets.slice().sort((a, b) => b.created - a.created).map(b => {
+    const s = bucketStats(b);
+    tMarket += s.market; tCards += s.count; if (s.paid != null) tPaid += s.paid;
+    return `<div class="brow" data-id="${esc(b.id)}">
+      <div><div class="n">${esc(b.name)}${b.id === state.active ? '<em>Scanning</em>' : ''}</div>
+      <div class="d">${fmtDate(b.created)} · ${s.count} card${s.count === 1 ? '' : 's'}${b.notes ? ' · ' + esc(b.notes.slice(0, 40)) : ''}</div></div>
+      <div class="v"><b>${money(s.market)}</b><span>${s.paid != null ? 'Paid ' + money(s.paid) : `Offer ${money(s.offer)}`}</span></div>
+    </div>`;
+  }).join('');
+  $('bsBody').innerHTML = `
+    <div class="btop">
+      <button class="pri" type="button" id="newBucket">+ New bucket</button>
+      <label>Import CSV<input type="file" accept=".csv,text/csv" id="importInput"></label>
+    </div>
+    <div class="grand"><span>${state.buckets.length} buckets · <b>${tCards}</b> cards</span><span>Market <b>${money(tMarket)}</b></span><span>Paid <b>${money(tPaid)}</b></span></div>
+    <div style="margin-top:8px">${rows}</div>`;
+  $('bsBody').querySelectorAll('.brow').forEach(el => el.addEventListener('click', () => {
+    state.active = el.dataset.id; saveSoon(); renderAll(); $('bs').close();
+  }));
+  $('newBucket').addEventListener('click', async () => {
+    const draft = makeBucket();
+    const name = await ask({title: 'New bucket', text: 'Name it after the lot, seller or container.', input: draft.name, okLabel: 'Create'});
+    if (name === null) return;
+    draft.name = name || draft.name;
+    state.buckets.push(draft); state.active = draft.id;
+    saveSoon(); renderAll(); $('bs').close();
+    toast(`Scanning into ${draft.name}`);
+  });
+  $('importInput').addEventListener('change', e => { const f = e.target.files && e.target.files[0]; e.target.value = ''; if (f) importCsv(f); });
+}
+
+function openSheet(mode, uid) {
+  Object.assign(sheet, {mode, uid: uid || null, results: null, msg: '', query: ''});
+  if (mode === 'change') renderChangeSheet();
+  else if (mode === 'add') renderAddSheet();
+  else renderBucketsSheet();
+  if (!$('bs').open) $('bs').showModal();
+  $('bsBody').scrollTop = 0;
+}
+
+/* ================= CSV export / import ================= */
+const CSV_HEAD = ['Bucket', 'Card', 'Set', 'Set Code', 'Number', 'Version', 'TCGplayer Market', 'Offer', 'Offer %', 'Bucket Paid', 'Card ID', 'Version Key', 'Added'];
+function bucketCsv(b) {
+  const q = v => `"${String(v == null ? '' : v).replace(/"/g, '""')}"`;
+  const rows = [CSV_HEAD];
+  b.items.filter(it => it.card).slice().reverse().forEach(it => {
+    const m = marketOf(it);
+    rows.push([b.name, it.card.name, it.card.setName, it.card.setCode, fmtNum(it.card), PRINTINGS[it.printing] || it.printing,
+      typeof m === 'number' ? m.toFixed(2) : '', num2(itemOffer(b, it)), b.offerPct, b.paid != null ? num2(b.paid) : '',
+      it.card.id, it.printing, new Date(it.added || Date.now()).toISOString()]);
+  });
+  return rows.map(r => r.map(q).join(',')).join('\n');
+}
+
+function parseCsv(text) {
+  const rows = []; let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQ) {
+      if (ch === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else inQ = false; }
+      else cur += ch;
+    } else if (ch === '"') inQ = true;
+    else if (ch === ',') { row.push(cur); cur = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+    else cur += ch;
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim()));
+}
+
+async function importCsv(file) {
+  try {
+    const rows = parseCsv(await file.text());
+    const head = rows.shift() || [];
+    const col = name => head.findIndex(h => h.trim().toLowerCase() === name.toLowerCase());
+    const iId = col('Card ID'), iKey = col('Version Key'), iBucket = col('Bucket'), iPct = col('Offer %'), iPaid = col('Bucket Paid');
+    if (iId < 0) throw new Error('This CSV wasn’t exported from Card Scan (no “Card ID” column).');
+    toast('Importing…');
+    const byId = await cardsByIds(rows.map(r => r[iId]));
+    const name = (iBucket >= 0 && rows[0] && rows[0][iBucket]) || file.name.replace(/\.csv$/i, '');
+    const b = makeBucket(`${name} (imported)`);
+    if (iPct >= 0 && rows[0] && parseMoney(rows[0][iPct]) != null) b.offerPct = parseMoney(rows[0][iPct]);
+    if (iPaid >= 0 && rows[0] && parseMoney(rows[0][iPaid]) != null) b.paid = parseMoney(rows[0][iPaid]);
+    let missing = 0;
+    rows.forEach(r => {
+      const c = byId[r[iId]];
+      if (!c) { missing++; return; }
+      const key = iKey >= 0 && c.prices[r[iKey]] ? r[iKey] : defaultPrinting(c);
+      b.items.unshift({uid: newId(), status: 'done', card: c, printing: key, confirmed: true, cands: [], added: Date.now()});
+    });
+    state.buckets.push(b); state.active = b.id;
+    saveSoon(); renderAll(); $('bs').close();
+    toast(`Imported ${b.items.length} cards${missing ? ` (${missing} not found)` : ''} with today’s prices`);
+  } catch (e) { toast(e.message || 'Import failed'); }
+}
+
+async function shareCsv() {
+  const b = activeBucket();
+  const csv = bucketCsv(b);
+  const fname = b.name.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-') + '.csv';
+  try {
+    const f = new File([csv], fname, {type: 'text/csv'});
+    if (navigator.canShare && navigator.canShare({files: [f]})) { await navigator.share({files: [f], title: b.name}); return; }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'}));
+  a.download = fname;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+async function refreshPrices() {
+  const b = activeBucket();
+  const ids = b.items.filter(it => it.card).map(it => it.card.id);
+  if (!ids.length) return;
+  $('refreshBtn').textContent = 'Updating…';
+  try {
+    const byId = await cardsByIds(ids);
+    b.items.forEach(it => {
+      const c = it.card && byId[it.card.id];
+      if (c) { it.card.prices = c.prices; it.card.updatedAt = c.updatedAt; if (!c.prices[it.printing]) it.printing = defaultPrinting(c); }
+    });
+    saveSoon(); renderItems(); renderSummary();
+    toast('Prices updated');
+  } catch (e) { toast(e.message); }
+  $('refreshBtn').textContent = 'Update prices';
+}
+
+/* ================= wiring ================= */
+function toggleSheet(force) {
+  const on = typeof force === 'boolean' ? force : !$('app').classList.contains('expanded');
+  $('app').classList.toggle('expanded', on);
+  $('chevBtn').setAttribute('aria-label', on ? 'Back to camera' : 'Open bucket details');
+  if (on) $('list').scrollTop = 0;
+}
+
+$('cam').addEventListener('click', e => {
+  if (e.target.closest('#camRetry')) return;
+  if ($('app').classList.contains('expanded')) { toggleSheet(false); return; }
+  if (!$('camErr').hidden) return;
+  captureNow();
+});
+$('camRetry').addEventListener('click', e => { e.stopPropagation(); startCamera(); });
+$('chevBtn').addEventListener('click', () => toggleSheet());
+$('calcBtn').addEventListener('click', () => toggleSheet(true));
+$('offerLine').addEventListener('click', () => toggleSheet(true));
+$('sheet').addEventListener('transitionend', layoutGuide);
+$('items').addEventListener('click', e => { const el = e.target.closest('.item'); if (el) openSheet('change', el.dataset.uid); });
+$('searchBtn').addEventListener('click', () => openSheet('add'));
+$('bucketBtn').addEventListener('click', () => openSheet('buckets'));
+$('bsDone').addEventListener('click', () => $('bs').close());
+$('bs').addEventListener('click', e => { if (e.target === $('bs')) $('bs').close(); });
+
+// bucket panel
+$('presets').innerHTML = PRESETS.map(p => `<button type="button" data-p="${p}">${p}</button>`).join('');
+const setPct = (v, skip) => { const b = activeBucket(); b.offerPct = clamp(Math.round(v * 10) / 10, 0, 100); saveSoon(); renderSummary(skip); refreshItemOffers(); };
+$('presets').addEventListener('click', e => { const btn = e.target.closest('button'); if (btn) setPct(Number(btn.dataset.p)); });
+$('pctRange').addEventListener('input', () => setPct(Number($('pctRange').value)));
+$('pctInput').addEventListener('input', () => { const v = parseMoney($('pctInput').value); if (v != null) setPct(v, 'pct'); });
+$('pctInput').addEventListener('blur', () => setTimeout(renderSummary, 0));
+$('offerInput').addEventListener('input', () => {
+  const v = parseMoney($('offerInput').value), s = bucketStats(activeBucket());
+  if (v != null && s.eligible > 0) setPct(v / s.eligible * 100, 'offer');
+});
+$('offerInput').addEventListener('blur', () => setTimeout(renderSummary, 0));
+$('minInput').addEventListener('input', () => { const b = activeBucket(); b.minValue = Math.max(0, parseMoney($('minInput').value) || 0); saveSoon(); renderSummary('min'); refreshItemOffers(); });
+$('paidInput').addEventListener('input', () => { const b = activeBucket(); b.paid = parseMoney($('paidInput').value); saveSoon(); renderSummary('paid'); });
+$('paidInput').addEventListener('blur', () => setTimeout(renderSummary, 0));
+$('usePaid').addEventListener('click', () => { const b = activeBucket(); b.paid = Math.round(bucketStats(b).offer * 100) / 100; saveSoon(); renderSummary(); toast(`Paid set to ${money(b.paid)}`); });
+$('bName').addEventListener('input', () => { const b = activeBucket(); b.name = $('bName').value.trim() || b.name; $('bucketLabel').textContent = b.name; saveSoon(); });
+$('notes').addEventListener('input', () => { activeBucket().notes = $('notes').value; saveSoon(); });
+$('refreshBtn').addEventListener('click', refreshPrices);
+$('shareBtn').addEventListener('click', shareCsv);
+$('copyBtn').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(bucketCsv(activeBucket())); toast('CSV copied'); }
+  catch (e) { toast("Couldn't copy. Use Share CSV instead."); }
+});
+$('delBucketBtn').addEventListener('click', async () => {
+  const b = activeBucket();
+  const ok = await ask({title: `Delete “${b.name}”?`, text: `This removes the bucket and its ${b.items.length} cards from this phone. Share the CSV first if you need a copy.`, okLabel: 'Delete', danger: true});
+  if (!ok) return;
+  b.items.forEach(it => dropPhoto(it.uid));
+  state.buckets = state.buckets.filter(x => x.id !== b.id);
+  if (!state.buckets.length) state.buckets.push(makeBucket());
+  state.active = state.buckets[state.buckets.length - 1].id;
+  saveSoon(); renderAll(); toggleSheet(false);
+  toast('Bucket deleted');
+});
+
+// settings
+$('settingsBtn').addEventListener('click', () => {
+  $('aiKeyInput').value = aiKey();
+  $('aiModel').value = aiModel();
+  $('tcgKeyInput').value = ls.get('tcgKey', '');
+  $('defPct').value = ls.get('defaultPct', 70);
+  $('testResult').textContent = '';
+  $('settings').showModal();
+});
+$('settingsCancel').addEventListener('click', () => $('settings').close());
+$('settingsSave').addEventListener('click', () => {
+  ls.set('aiKey', $('aiKeyInput').value.trim());
+  ls.set('aiModel', $('aiModel').value);
+  ls.set('tcgKey', $('tcgKeyInput').value.trim());
+  const d = parseMoney($('defPct').value);
+  if (d != null) ls.set('defaultPct', clamp(d, 0, 100));
+  $('settings').close();
+  if (!aiKey()) getWorker().catch(() => {});
+  updateChip();
+});
+$('testKey').addEventListener('click', async () => {
+  const key = $('aiKeyInput').value.trim();
+  if (!key) { $('testResult').textContent = 'Paste a key first.'; return; }
+  $('testResult').textContent = 'Testing…';
+  try { await callClaude([{type: 'text', text: 'Reply with OK.'}], 10, key, $('aiModel').value); $('testResult').textContent = '✓ Key works.'; }
+  catch (e) { $('testResult').textContent = '✗ ' + e.message; }
+});
+
+$('torchBtn').addEventListener('click', async () => {
+  if (!track) return;
+  try { await track.applyConstraints({advanced: [{torch: !torchOn}]}); torchOn = !torchOn; $('torchBtn').classList.toggle('on', torchOn); }
+  catch (e) { $('torchBtn').hidden = true; }
+});
+
+$('fileInput').addEventListener('change', e => {
+  const f = e.target.files && e.target.files[0];
+  e.target.value = '';
+  if (!f) return;
+  const url = URL.createObjectURL(f);
+  const img = new Image();
+  img.onload = () => {
+    URL.revokeObjectURL(url);
+    const s = Math.min(1, 2000 / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    enqueue(c, thumbUrl(c), state.active);
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); toast("Couldn't open that photo"); };
+  img.src = url;
+});
+
+function setHeaderVar() { document.documentElement.style.setProperty('--hh', $('hdr').offsetHeight + 'px'); }
+window.addEventListener('resize', () => { setHeaderVar(); layoutGuide(); });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { stopCamera(); saveNow(); updateChip(); }
+  else startCamera();
+});
+window.addEventListener('pagehide', () => saveNow());
+
+/* ================= start ================= */
+(async () => {
+  setHeaderVar();
+  layoutGuide();
+  await loadState();
+  renderAll();
+  startCamera();
+  if (!aiKey()) getWorker().catch(() => {});
+})();
+
+window.__cardScan = {parseNumber, numFromAi, numberClause, nameClause, scoreCards, confidence, bucketStats, parseCsv, get state() { return state; }};
+})();
+</script>
+</body>
+</html>
