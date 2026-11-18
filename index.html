@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="EZScanner">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="icon" href="assets/icon.png">
+<link rel="stylesheet" href="src/styles.css">
+<title>EZScanner</title>
+</head>
+<body>
+<div class="app" id="app">
+  <header id="hdr">
+    <button class="bucketbtn" id="bucketBtn" type="button" aria-label="Switch bucket">
+      <svg class="box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></svg>
+      <span id="bucketLabel">Bucket</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div class="hbtns">
+      <button class="icon" id="torchBtn" type="button" aria-label="Flashlight" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>
+      </button>
+      <label class="icon" aria-label="Scan from a photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="15.5" cy="9" r="1.8"/><path d="M3 17l5-5 4 4 2.5-2.5L21 19"/></svg>
+        <input type="file" accept="image/*" id="fileInput">
+      </label>
+      <button class="icon" id="settingsBtn" type="button" aria-label="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="cam" id="cam" role="button" aria-label="Tap to scan a card">
+    <video id="video" playsinline muted autoplay></video>
+    <div class="guide" id="guide"><i></i><i></i><i></i><i></i></div>
+    <div class="tap" id="tapHint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v4a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.6-2.2L4.4 15a1.5 1.5 0 0 1 2.3-1.9L9 15.5V11"/><path d="M6.5 6.5a4 4 0 0 1 8 0" opacity=".6"/></svg>
+      Tap to Scan
+    </div>
+    <div class="chip" id="chip"><span class="dot" id="chipDot"></span><span id="chipText">Starting camera…</span></div>
+    <div class="flash" id="flash"></div>
+    <div class="camerr" id="camErr" hidden>
+      <div id="camErrText"></div>
+      <button type="button" id="camRetry">Try again</button>
+    </div>
+  </div>
+
+  <section class="sheet" id="sheet">
+    <div class="bar">
+      <div class="l">
+        <button class="txtbtn" id="searchBtn" type="button" aria-label="Search for a card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+        </button>
+        <button class="txtbtn" id="calcBtn" type="button" aria-label="Offer calculator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5v3M8.5 18h.01M12 18h.01"/></svg>
+        </button>
+      </div>
+      <button class="chev" id="chevBtn" type="button" aria-label="Open bucket details">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
+      </button>
+      <div class="sum" id="sum">0<span class="sep">•</span><em>$0.00</em></div>
+    </div>
+    <div class="offerline" id="offerLine"></div>
+    <button class="reviewbar" id="reviewBar" type="button" hidden></button>
+    <div class="list" id="list">
+      <div class="bpanel" id="bpanel">
+        <div class="bname"><input id="bName" aria-label="Bucket name" autocomplete="off"></div>
+        <div class="bdate" id="bDate"></div>
+        <div class="stats">
+          <div class="stat"><small>Market value</small><b id="stMarket">$0.00</b><span id="stCount"></span></div>
+          <div class="stat"><small>We paid</small><div class="money"><i>$</i><input id="paidInput" inputmode="decimal" placeholder="0.00" autocomplete="off"></div><span id="stPaidPct"></span></div>
+          <div class="stat"><small>Profit</small><b id="stProfit">—</b><span id="stMargin"></span></div>
+        </div>
+        <div class="calc">
+          <div class="calc-h"><span>Offer calculator</span><span id="eligInfo"></span></div>
+          <div class="calc-main">
+            <div class="field"><small>Offer %</small><div class="in"><input id="pctInput" inputmode="decimal" autocomplete="off"><i>%</i></div></div>
+            <div class="field offer"><small>Offer / payout</small><div class="in"><i>$</i><input id="offerInput" inputmode="decimal" autocomplete="off"></div></div>
+          </div>
+          <input type="range" id="pctRange" min="0" max="100" step="1" aria-label="Offer percent">
+          <div class="presets" id="presets"></div>
+          <div class="minrow">Skip cards under $<input id="minInput" inputmode="decimal" autocomplete="off" placeholder="0"> <span id="minInfo"></span></div>
+          <button class="usepaid" id="usePaid" type="button">Use this offer as “We paid”</button>
+        </div>
+        <textarea class="notes" id="notes" placeholder="Notes: seller, where the bucket is stored, etc."></textarea>
+        <div class="bactions">
+          <button id="refreshBtn" type="button">Update prices</button>
+          <button id="shareBtn" type="button">Share CSV</button>
+          <button id="copyBtn" type="button">Copy CSV</button>
+        </div>
+        <div class="sec"><span>Cards</span><button id="delBucketBtn" type="button">Delete bucket</button></div>
+      </div>
+      <div id="items"></div>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<dialog class="bs" id="bs">
+  <div class="bs-head"><h2 id="bsTitle"></h2><button class="done" id="bsDone" type="button">Done</button></div>
+  <div class="bs-body" id="bsBody"></div>
+</dialog>
+
+<dialog class="mid" id="settings">
+  <h2>Settings</h2>
+  <label class="f" for="aiKeyInput">AI card recognition: Claude API key</label>
+  <input id="aiKeyInput" type="password" placeholder="sk-ant-…" autocapitalize="off" autocomplete="off" spellcheck="false">
+  <div class="hint">Saved only on this phone, until team sign-in arrives. Use a key with prepaid credits and auto-reload off. Without a key the app uses the free text reader.</div>
+  <label class="f" for="aiModel">AI model</label>
+  <select id="aiModel"></select>
+  <label class="f" for="verifyMode">Visual double-check against official card images</label>
+  <select id="verifyMode">
+    <option value="always">Every scan (most accurate)</option>
+    <option value="unsure">Only when the match is unsure (cheaper)</option>
+    <option value="off">Off</option>
+  </select>
+  <div class="row"><button id="testKey" type="button">Test AI key</button></div>
+  <div class="hint" id="testResult"></div>
+  <label class="f" for="providerSel">Price source</label>
+  <select id="providerSel"></select>
+  <label class="f" for="defPct">Default offer % for new buckets</label>
+  <input id="defPct" inputmode="decimal" autocomplete="off">
+  <label class="f" for="tcgKeyInput">pokemontcg.io API key (optional)</label>
+  <input id="tcgKeyInput" type="text" placeholder="Only if you already have one" autocapitalize="off" autocomplete="off" spellcheck="false">
+  <label class="f">Scan accuracy on this phone</label>
+  <div id="statsBox" class="hint"></div>
+  <div class="row">
+    <button id="settingsCancel" type="button">Cancel</button>
+    <button id="settingsSave" type="button" class="pri">Save</button>
+  </div>
+  <div class="hint" id="aboutLine" style="margin-top:14px"></div>
+</dialog>
+
+<dialog class="mid" id="askDlg">
+  <h2 id="askTitle"></h2>
+  <p id="askText"></p>
+  <input id="askInput" autocomplete="off" hidden>
+  <div class="row">
+    <button id="askCancel" type="button">Cancel</button>
+    <button id="askOk" type="button" class="pri">OK</button>
+  </div>
+</dialog>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

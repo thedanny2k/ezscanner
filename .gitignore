@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+*.local
+.DS_Store
+coverage/
+_site/
+supabase/.temp/
+supabase/.branches/
+
+# Team exports never go in the repo (they contain what you paid for lots)
+exports/
+*.export.csv

@@ -1,0 +1,16 @@
+{
+  "id": "sv1-25",
+  "name": "Pikachu",
+  "number": "25",
+  "rarity": "Common",
+  "set": { "id": "sv1", "name": "Scarlet & Violet", "printedTotal": 198, "ptcgoCode": "SVI", "releaseDate": "2023/03/31" },
+  "images": { "small": "https://images.pokemontcg.io/sv1/25.png", "large": "https://images.pokemontcg.io/sv1/25_hires.png" },
+  "tcgplayer": {
+    "url": "https://prices.pokemontcg.io/tcgplayer/sv1-25",
+    "updatedAt": "2026/11/14",
+    "prices": {
+      "normal": { "low": 0.05, "mid": 0.25, "high": 2.0, "market": 0.18 },
+      "reverseHolofoil": { "low": 0.3, "mid": 0.6, "high": 3.5, "market": 0.52 }
+    }
+  }
+}

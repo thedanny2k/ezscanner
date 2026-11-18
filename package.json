@@ -1,0 +1,20 @@
+{
+  "name": "ezscanner",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Scan lots of Pokémon cards, get exact-version TCGplayer prices, and track what you paid.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "serve": "npx --yes serve .",
+    "score": "node eval/score.js eval/testset.csv"
+  },
+  "devDependencies": {
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

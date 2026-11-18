@@ -1,0 +1,21 @@
+{
+  "_note": "Sample shaped after the TCGdex docs (tcgdex.dev/reference/card). Replace with a real API response in v0.2.",
+  "id": "sv01-025",
+  "localId": "025",
+  "name": "Pikachu",
+  "image": "https://assets.tcgdex.net/en/sv/sv01/025",
+  "rarity": "Common",
+  "set": {
+    "id": "sv01",
+    "name": "Scarlet & Violet",
+    "cardCount": { "official": 198, "total": 258 }
+  },
+  "pricing": {
+    "tcgplayer": {
+      "updated": "2026-11-14T12:00:00.000Z",
+      "unit": "USD",
+      "normal": { "lowPrice": 0.05, "midPrice": 0.25, "highPrice": 2.0, "marketPrice": 0.18 },
+      "reverse-holofoil": { "lowPrice": 0.3, "midPrice": 0.6, "highPrice": 3.5, "marketPrice": 0.52 }
+    }
+  }
+}
