@@ -18,16 +18,32 @@ export const modelShortName = (m) => (m === 'text-reader' ? 'Text reader' : m.in
 const CLAUDE_API = 'https://api.anthropic.com/v1/messages';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-/** Calls the Claude API from the browser with a key stored on this phone. */
+
+export const THINKING_OFF = {
+  'claude-sonnet-5-5': { type: 'between_tools' },
+  'claude-haiku-5-5': { type: 'disabled' },
+};
+
+/**
+ * Messages API request body for a task.
+ * @param {boolean} [fallback] leave thinking at the model's default (used if the API rejects our setting)
+ */
+export function requestBody(task, fallback = false) {
+  const body = {
+    model: task.model,
+    max_tokens: fallback ? 4000 : task.task === 'verify' ? 150 : 400,
+    messages: [{ role: 'user', content: task.content || buildContent(task) }],
+  };
+  const thinking = THINKING_OFF[task.model];
+  if (thinking && !fallback) body.thinking = thinking;
+  return body;
+}
+
 export function directTransport(getKey) {
   return async function send(task) {
-    const body = {
-      model: task.model,
-      max_tokens: task.task === 'verify' ? 150 : 400,
-      thinking: { type: 'disabled' },
-      messages: [{ role: 'user', content: task.content || buildContent(task) }],
-    };
+    let fallback = false;
     for (let attempt = 0; ; attempt++) {
+      const body = requestBody(task, fallback);
       let res;
       try {
         res = await fetch(CLAUDE_API, {
@@ -51,9 +67,17 @@ export function directTransport(getKey) {
       if (!res.ok) {
         let msg = '';
         try { msg = ((await res.json()).error || {}).message || ''; } catch (e) { /* no body */ }
+        // If the model rejects our thinking setting (rules differ per model and change over time),
+        // retry once with the model's default rather than failing the scan.
+        if (res.status === 400 && !fallback && body.thinking && /thinking|effort/i.test(msg)) {
+          fallback = true;
+          attempt--;
+          continue;
+        }
         throw new Error('AI error: ' + (msg || res.status));
       }
       const j = await res.json();
+      // Only text blocks carry the answer; skip any thinking blocks.
       const text = (j.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
       return task.raw ? text : parseAiJson(text);
     }

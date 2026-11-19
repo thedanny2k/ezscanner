@@ -14,6 +14,12 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 
 const MODELS = new Set(['claude-sonnet-5-5', 'claude-haiku-5-5']);
+// Lowest thinking setting per model (same as THINKING_OFF in src/recognize/ai.js).
+// Sonnet 5.5 rejects {type: 'disabled'}; Haiku 5.5 rejects 'between_tools'.
+const THINKING_OFF: Record<string, { type: string }> = {
+  'claude-sonnet-5-5': { type: 'between_tools' },
+  'claude-haiku-5-5': { type: 'disabled' },
+};
 const DEFAULT_MODEL = 'claude-sonnet-5-5';
 const MAX_IMAGE_B64 = 8_000_000; // ~6 MB image; the app sends well under 300 KB
 const ALLOWED_IMAGE_HOSTS = new Set(['images.pokemontcg.io', 'assets.tcgdex.net', 'images.scrydex.com']);
@@ -112,7 +118,7 @@ Deno.serve(async (req) => {
     body: JSON.stringify({
       model,
       max_tokens: t.task === 'verify' ? 150 : 400,
-      thinking: { type: 'disabled' },
+      thinking: THINKING_OFF[model],
       messages: [{ role: 'user', content: buildContent(t, candidates) }],
     }),
   });

@@ -3,6 +3,8 @@
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow the milestones in [ROADMAP.md](ROADMAP.md).
 
 ## [Unreleased]
+### Fixed
+- AI scans failed on Claude Sonnet 5.5 with "To turn thinking off on this model, send between_tools". Each model now gets the thinking setting it accepts (Sonnet 5.5: `between_tools`, Haiku 5.5: `disabled`), and if the API ever rejects it the app retries once with the model's default instead of failing the scan.
 
 ## [0.2.0] - 2026-11-16 — Working app on the modules
 ### Added
