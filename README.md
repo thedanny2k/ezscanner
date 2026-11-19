@@ -2,11 +2,7 @@
 
 > Scan large lots of Pokémon cards with a phone, get exact-version TCGplayer market prices, and track what each lot cost.
 
-![Tests](https://github.com/YOUR-USERNAME/ezscanner/actions/workflows/test.yml/badge.svg)
 
-**Live:** https://YOUR-USERNAME.github.io/ezscanner/ · **Status:** v0.2: the app works end to end on one phone; team database and sign-in are next ([roadmap](ROADMAP.md))
-
-<!-- TODO(v1.0): 30-second demo GIF here -->
 
 ## Why I built it
 
