@@ -30,7 +30,8 @@ export function initSettings(onSaved) {
     $('defPct').value = s.defaultPct;
     $('testResult').textContent = '';
     $('statsBox').innerHTML = statsHtml();
-    $('aboutLine').textContent = `EZScanner v${APP_VERSION} · data is saved on this phone${app.storage.persistent ? '' : ' (not saving: private browsing?)'}`;
+    const nm = app.live && app.live.enabled ? 'Near Mint prices: live from TCGplayer' : 'Near Mint prices: not set up (daily prices)';
+    $('aboutLine').textContent = `EZScanner v${APP_VERSION} · data is saved on this phone${app.storage.persistent ? '' : ' (not saving: private browsing?)'} · ${nm}`;
     $('settings').showModal();
   });
   $('settingsCancel').addEventListener('click', () => $('settings').close());

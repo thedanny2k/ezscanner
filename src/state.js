@@ -8,6 +8,7 @@ export const app = {
   storage: null, // set in main.js
   scanner: null, // set in main.js
   ai: null, // set in main.js
+  live: null, // live Near Mint prices, set in main.js
   state: { buckets: [] },
   photos: {}, // item id -> thumbnail data URL
   filter: 'all', // 'all' | 'review'

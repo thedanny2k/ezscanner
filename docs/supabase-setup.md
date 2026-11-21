@@ -1,8 +1,20 @@
-# Supabase setup (v0.3)
+# Supabase setup
 
-About 20 minutes. You need the [Supabase CLI](https://supabase.com/docs/guides/cli) for the Edge Function steps.
+## Live Near Mint prices (about 10 minutes, no installs)
 
-1. **Create the project.** supabase.com → New project. Save the database password somewhere safe.
+1. **Create the project.** supabase.com → sign up → New project (Free plan). Save the database password somewhere safe.
+2. **Create the function.** Edge Functions → Deploy a new function → Via Editor. Name it `tcg-price`, replace the sample code with all of `supabase/functions/tcg-price/index.ts`, and click Deploy.
+3. **Turn off JWT verification for it.** Open the function's details and switch off "Verify JWT" (or "Enforce JWT verification"), then save. It only returns public prices, and the app calls it without a key.
+4. **Test it.** Copy the function URL from its page and open `URL?ids=693517` in your browser. You should see JSON with a `foil` price close to TCGplayer's Near Mint Market Price for Mega Greninja ex 116/086.
+5. **Point the app at it.** Paste the URL into `LIVE_PRICES_URL` in `src/config.js`, commit and push. Settings shows "Near Mint prices: live from TCGplayer".
+
+The repo copy of the function is the one that counts: the dashboard editor has no history, so after any change paste the repo version in again. CLI alternative: `supabase functions deploy tcg-price --no-verify-jwt`. The function answers browsers only from `https://thedanny2k.github.io` and `localhost`; set an `ALLOWED_ORIGINS` secret (comma-separated) to change that.
+
+## Team data and keys (v0.3)
+
+About 20 minutes more. You need the [Supabase CLI](https://supabase.com/docs/guides/cli) for the Edge Function steps.
+
+1. **Use the same project** you made for live prices.
 2. **Create the tables.** Either paste `supabase/migrations/0001_init.sql` into SQL Editor → Run, or:
 
    ```bash

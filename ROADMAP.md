@@ -23,6 +23,8 @@ Each version is a GitHub milestone; each open checkbox is an issue (`scripts/git
 - [x] Prices straight from TCGplayer: daily price-guide file, market price only, default for everyone ([0007](docs/decisions/0007-tcgplayer-market-price-daily-file.md))
 - [ ] Check prices on the first 20 real scans against each card's TCGplayer page
 - [x] Collectr-style search: name, set and number prefix ("charizard 14"), tile per version, confirm before pricing
+- [x] Near Mint prices read live from TCGplayer through a Supabase Edge Function ([0008](docs/decisions/0008-near-mint-prices-from-tcgplayer-site.md))
+- [ ] Set up the Supabase project and the `tcg-price` function; fill in `LIVE_PRICES_URL`
 - [ ] Create the Supabase project, run the migration, add the team
 - [ ] Sign-in screen (email magic link)
 - [ ] Supabase storage adapter with an offline copy in IndexedDB, plus live sync
