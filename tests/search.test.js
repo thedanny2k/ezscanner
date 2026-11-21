@@ -19,6 +19,7 @@ const CARDS = [
   { name: 'Pikachu', setName: 'Silver Tempest Trainer Gallery', setCode: 'SIT', number: 'TG05', total: 30, date: '2022/11/11' },
   { name: 'Lugia V (Alternate Full Art)', setName: 'Silver Tempest', setCode: 'SIT', number: '186', total: 195, date: '2022/11/11' },
   { name: 'Flabébé', setName: 'Sample Set', setCode: 'SMP', number: '60', total: 100, date: '2010/01/01' },
+  { name: 'Charizard', setName: 'Promo group without a release date', setCode: 'PR', number: '9', total: '', date: '' },
 ].map(toSearchRow);
 
 const names = (rows) => rows.map((r) => `${r.name} ${r.number}`);
@@ -45,6 +46,7 @@ describe('reading what was typed', () => {
 describe('Collectr-style search', () => {
   it('"charizard 14" finds every Charizard numbered 14…, exact number first', () => {
     expect(names(find('charizard 14'))).toEqual(['Charizard 014', 'Charizard 146', 'Charizard G LV.X 143']);
+    expect(names(find('charizard 9'))).toEqual(['Charizard 9']);
   });
 
   it('every word has to match: name, set or number', () => {
@@ -65,21 +67,23 @@ describe('Collectr-style search', () => {
   });
 
   it('works while the last word is half typed, exact names first', () => {
-    expect(names(find('chari'))).toHaveLength(4);
+    expect(names(find('chari'))).toHaveLength(5);
     expect(names(find('pikachu'))).toEqual(['Pikachu 025', 'Pikachu TG05', 'Pikachu ex 057']);
   });
 
   it('sorts by newest, oldest or number', () => {
     expect(names(find('charizard', { sort: 'newest' }))[0]).toBe('Charizard GX (Secret) 150');
     expect(names(find('charizard', { sort: 'oldest' }))[0]).toBe('Charizard 146');
-    expect(names(find('charizard', { sort: 'number' }))).toEqual(['Charizard 014', 'Charizard G LV.X 143', 'Charizard 146', 'Charizard GX (Secret) 150']);
+    expect(names(find('charizard', { sort: 'oldest' })).at(-1)).toBe('Charizard 9'); // no release date: last either way
+    expect(names(find('charizard', { sort: 'newest' })).at(-1)).toBe('Charizard 9');
+    expect(names(find('charizard', { sort: 'number' }))).toEqual(['Charizard 9', 'Charizard 014', 'Charizard G LV.X 143', 'Charizard 146', 'Charizard GX (Secret) 150']);
     expect(names(find('pikachu', { sort: 'number' })).at(-1)).toBe('Pikachu TG05');
   });
 
   it('caps long result lists but reports the full count', () => {
     const r = searchRows(CARDS, 'c', { limit: 2 });
     expect(r.rows).toHaveLength(2);
-    expect(r.total).toBe(7);
+    expect(r.total).toBe(8);
     expect(searchRows(CARDS, '').rows).toEqual([]);
   });
 

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  buildPriceFile, checkPriceFile, cleanCardName, cleanSetName, printingKey, rowToFields, splitNumber,
+  buildPriceFile, byRelease, checkPriceFile, cleanCardName, cleanSetName, printingKey, releaseDay, rowToFields, splitNumber,
 } from '../src/providers/tcgplayer-data.js';
 import tcgplayer, { setPriceFileUrl } from '../src/providers/tcgplayer.js';
 import { assertProvider } from '../src/providers/provider.js';
@@ -95,9 +95,27 @@ describe('TCGplayer price file: building it from tcgcsv', () => {
   });
 
   it('lists the newest sets first and survives a JSON round trip', () => {
-    expect(file.groups.map((g) => g[1])).toEqual(['Scarlet & Violet 151', 'Silver Tempest', 'Base Set', 'Base Set (Shadowless)']);
+    expect(file.groups.map((g) => g[1])).toEqual(['Scarlet & Violet 151', 'Silver Tempest', 'Base Set', 'Base Set (Shadowless)', 'POP Series 5']);
     expect(checkPriceFile(JSON.parse(JSON.stringify(file)))).toBeTruthy();
     expect(() => checkPriceFile({ v: 99 })).toThrow(/version/);
+  });
+});
+
+describe('TCGplayer release dates', () => {
+  it('reads a real release date, and ignores the time stamp TCGplayer puts on some old groups', () => {
+    expect(releaseDay('2023-09-22T00:00:00')).toBe('2023/09/22');
+    expect(releaseDay('2026-11-19T20:00:05.6396883Z')).toBe('');
+    expect(releaseDay(null)).toBe('');
+  });
+
+  it('a test build of the newest sets gets the newest sets, not re-stamped old ones', () => {
+    expect([...raw.groups].sort(byRelease).slice(0, 2).map((g) => g.name)).toEqual(['SV: Scarlet & Violet 151', 'SWSH12: Silver Tempest']);
+    expect(rowToFields(file, row(900401)).releaseDate).toBe('');
+  });
+
+  it('marks test builds so the app can warn that sets are missing', () => {
+    expect(buildPriceFile({ ...raw, partial: { limit: 2 } }).partial).toEqual({ limit: 2 });
+    expect(file.partial).toBeUndefined();
   });
 });
 
@@ -165,6 +183,10 @@ describe('TCGplayer provider', () => {
     expect(card.id).toBe('tcgplayer:900103');
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock.mock.calls[1][1]).toEqual({ cache: 'no-cache' });
+  });
+
+  it('reports what the loaded file covers', async () => {
+    expect(await tcgplayer.info()).toEqual({ sets: 5, cards: 11, updated: '2026/11/19', partial: null });
   });
 
   it('explains what to do when the price file has not been published yet', async () => {

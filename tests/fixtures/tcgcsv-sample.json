@@ -1,5 +1,5 @@
 {
- "_note": "Sample data in tcgcsv.com's response shapes (https://tcgcsv.com/docs). Product ids 9xxxxx are made up; prices are illustrative.",
+ "_note": "Sample data in tcgcsv.com's response shapes (https://tcgcsv.com/docs). Product ids 9xxxxx are made up; prices are illustrative. POP Series 5 carries the re-stamped publishedOn TCGplayer gives some old groups (not a release date).",
  "updated": "2026-11-19T20:05:11.000Z",
  "groups": [
   {
@@ -45,6 +45,15 @@
    "isSupplemental": true,
    "publishedOn": "2020-01-01T00:00:00",
    "modifiedOn": "2026-11-18T00:00:00",
+   "categoryId": 3
+  },
+  {
+   "groupId": 1439,
+   "name": "POP Series 5",
+   "abbreviation": "POP5",
+   "isSupplemental": false,
+   "publishedOn": "2026-11-19T20:00:05.6396883Z",
+   "modifiedOn": "2026-11-19T20:00:05.6396883Z",
    "categoryId": 3
   }
  ],
@@ -462,6 +471,36 @@
      }
     ]
    }
+  ],
+  "1439": [
+   {
+    "productId": 900401,
+    "name": "Pikachu",
+    "cleanName": "Pikachu",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/900401_200w.jpg",
+    "categoryId": 3,
+    "groupId": 1439,
+    "url": "https://www.tcgplayer.com/product/900401/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "9/17"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Common"
+     }
+    ]
+   }
   ]
  },
  "prices": {
@@ -606,6 +645,17 @@
     "midPrice": null,
     "highPrice": null,
     "marketPrice": 19.99,
+    "directLowPrice": null,
+    "subTypeName": "Normal"
+   }
+  ],
+  "1439": [
+   {
+    "productId": 900401,
+    "lowPrice": 1.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 2.5,
     "directLowPrice": null,
     "subTypeName": "Normal"
    }

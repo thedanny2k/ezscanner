@@ -13,11 +13,12 @@
 //   --reuse  If the live file already has tcgcsv's latest data, copy it instead of downloading
 //            ~450 files again (pushes during the day). If tcgcsv is down or a set fails to
 //            download, keep the live file so the site still deploys with yesterday's prices.
-//   --limit  Only the N newest sets, for a quick try on your computer.
+//   --limit  Only the N newest sets, for a quick code test. The app then warns that sets are missing;
+//            use the full build (npm run prices) to try the app for real.
 
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { buildPriceFile, checkPriceFile, PRICE_FILE_VERSION } from '../src/providers/tcgplayer-data.js';
+import { buildPriceFile, byRelease, checkPriceFile, PRICE_FILE_VERSION } from '../src/providers/tcgplayer-data.js';
 
 const BASE = process.env.TCGCSV_BASE || 'https://tcgcsv.com'; // overridable for tests
 const CATEGORY = 3; // Pokémon, English. (Japanese is a separate category.)
@@ -85,7 +86,7 @@ async function liveFile(url) {
 async function download(limit) {
   const groups = ((await get(`${BASE}/tcgplayer/${CATEGORY}/groups`)) || {}).results || [];
   if (!groups.length) throw new Error('tcgcsv returned no sets');
-  const picked = [...groups].sort((a, b) => String(b.publishedOn).localeCompare(String(a.publishedOn))).slice(0, limit || groups.length);
+  const picked = [...groups].sort(byRelease).slice(0, limit || groups.length);
   log(`${picked.length} of ${groups.length} sets`);
   const products = {};
   const prices = {};
@@ -111,6 +112,8 @@ async function write(dir, file) {
   const text = JSON.stringify(file);
   await writeFile(out, text);
   log(`wrote ${out}: ${file.groups.length} sets, ${file.cards.length} cards, ${(text.length / 1e6).toFixed(1)} MB, TCGplayer data from ${file.updated}`);
+  log(`newest sets: ${file.groups.slice(0, 5).map((g) => g[1]).join(', ')}`);
+  if (file.partial) log(`TEST BUILD: only the ${file.partial.limit} newest sets. Run without --limit for all of them.`);
 }
 
 async function main() {
@@ -118,7 +121,7 @@ async function main() {
   const updated = await tcgcsvUpdated();
   const live = await liveFile(opt.reuse);
 
-  if (live && live.v === PRICE_FILE_VERSION && updated && live.updated === updated && !opt.limit) {
+  if (live && live.v === PRICE_FILE_VERSION && !live.partial && updated && live.updated === updated && !opt.limit) {
     log('live file already has the latest TCGplayer data; reusing it (no download)');
     return write(opt.dir, live);
   }
@@ -131,7 +134,7 @@ async function main() {
       if (live) throw new Error('some sets failed to download');
       if (raw.failed.length > raw.groups.length * 0.05) throw new Error('too many sets failed to download');
     }
-    file = buildPriceFile({ groups: raw.groups, products: raw.products, prices: raw.prices, updated: updated || new Date().toISOString() });
+    file = buildPriceFile({ groups: raw.groups, products: raw.products, prices: raw.prices, updated: updated || new Date().toISOString(), partial: opt.limit ? { limit: opt.limit } : undefined });
     if (!opt.limit && file.cards.length < MIN_CARDS) throw new Error(`only ${file.cards.length} cards came back`);
   } catch (e) {
     if (!live) throw e;

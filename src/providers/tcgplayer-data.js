@@ -14,7 +14,8 @@
 //   built: '2026-11-19T21:40:02Z',              // when this file was made
 //   printings: ['Normal', 'Holofoil', ...],     // TCGplayer subTypeName values
 //   rarities: ['Common', ...],
-//   groups: [[groupId, setName, setCode, 'YYYY/MM/DD'], ...],
+//   groups: [[groupId, setName, setCode, 'YYYY/MM/DD' or '' if unknown], ...],
+//   partial: { limit: 12 },                     // only on test builds made with --limit
 //   cards: [[productId, groupIndex, name, number, rarityIndex, [printingIndex, market, ...]], ...]
 // }
 // `market` is null when TCGplayer has no market price for that printing (no recent sales).
@@ -71,6 +72,25 @@ const ext = (product, key) => {
 /** "2023-03-31T00:00:00" -> "2023/03/31". */
 const day = (iso) => (String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/) || []).slice(1).join('/');
 
+/**
+ * A set's release date, or '' when TCGplayer doesn't really give one.
+ * `publishedOn` is a release date (always midnight, "2023-03-31T00:00:00") for normal sets, but
+ * TCGplayer re-stamps some old and catch-all groups with the time it last touched them
+ * ("2026-11-19T20:00:05.6396883Z" on every POP Series, Nintendo Promos, ...). Those would
+ * otherwise sort as the newest sets, so they get no date and sort as oldest.
+ */
+export function releaseDay(publishedOn) {
+  return /^\d{4}-\d{2}-\d{2}T00:00:00(?:\.0+)?Z?$/.test(String(publishedOn || '')) ? day(publishedOn) : '';
+}
+
+/** Sort for tcgcsv groups: newest release first, sets without a real date last. */
+export function byRelease(a, b) {
+  const da = releaseDay(a.publishedOn);
+  const db = releaseDay(b.publishedOn);
+  if (da !== db) return !da ? 1 : !db ? -1 : db.localeCompare(da);
+  return a.groupId - b.groupId;
+}
+
 /** A product is a single card if TCGplayer gives it a collector number or a rarity (sealed product has neither). */
 export function isSingle(product) {
   const rarity = ext(product, 'Rarity');
@@ -85,7 +105,7 @@ const round2 = (n) => (typeof n === 'number' && Number.isFinite(n) ? Math.round(
  * @param {{groups:object[], products:Object<string,object[]>, prices:Object<string,object[]>, updated:string, built?:string}} raw
  *        products and prices are keyed by groupId, each the `results` array tcgcsv returns
  */
-export function buildPriceFile({ groups, products, prices, updated, built = new Date().toISOString() }) {
+export function buildPriceFile({ groups, products, prices, updated, built = new Date().toISOString(), partial }) {
   const printings = [];
   const rarities = [];
   const indexOf = (list, value) => {
@@ -95,12 +115,12 @@ export function buildPriceFile({ groups, products, prices, updated, built = new 
   };
   const outGroups = [];
   const cards = [];
-  const sorted = [...groups].sort((a, b) => String(b.publishedOn).localeCompare(String(a.publishedOn)) || a.groupId - b.groupId);
+  const sorted = [...groups].sort(byRelease);
   for (const g of sorted) {
     const singles = (products[g.groupId] || []).filter(isSingle);
     if (!singles.length) continue;
     const gi = outGroups.length;
-    outGroups.push([g.groupId, cleanSetName(g.name), g.abbreviation || '', day(g.publishedOn)]);
+    outGroups.push([g.groupId, cleanSetName(g.name), g.abbreviation || '', releaseDay(g.publishedOn)]);
     const byProduct = new Map();
     for (const p of prices[g.groupId] || []) {
       if (!byProduct.has(p.productId)) byProduct.set(p.productId, []);
@@ -110,7 +130,9 @@ export function buildPriceFile({ groups, products, prices, updated, built = new 
       cards.push([p.productId, gi, cleanCardName(p.name), ext(p, 'Number'), indexOf(rarities, ext(p, 'Rarity')), byProduct.get(p.productId) || []]);
     }
   }
-  return { v: PRICE_FILE_VERSION, source: 'TCGplayer Market Price via tcgcsv.com', updated, built, printings, rarities, groups: outGroups, cards };
+  const file = { v: PRICE_FILE_VERSION, source: 'TCGplayer Market Price via tcgcsv.com', updated, built, printings, rarities, groups: outGroups, cards };
+  if (partial) file.partial = partial; // a test build with only some sets (build-prices.mjs --limit)
+  return file;
 }
 
 /** Checks a downloaded price file before the app trusts it. Throws with a readable message. */

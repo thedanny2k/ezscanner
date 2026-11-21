@@ -1,6 +1,6 @@
 # 2026-11-20 — Prices straight from TCGplayer, and search like Collectr
 
-**Milestone:** v0.3 · **Tests:** 98 unit tests + browser runs of 34 and 26 checks
+**Milestone:** v0.3 · **Tests:** 102 unit tests + browser runs of 34 and 28 checks
 
 ## Goal
 1. The first real scan showed TCGplayer's lowest Near Mint listing instead of the Market Price. Our buyers pay off the Market Price, so the app has to show that number and nothing else.
@@ -18,13 +18,14 @@
 - **The bug wasn't in the code.** The app already read `market`. The free APIs we used were copies of TCGplayer's data that had gone stale or mapped versions wrongly. Going to the source fixed it; reading the field more carefully wouldn't have.
 - **TCGCSV can't be called from a phone.** It blocks browser requests on purpose and asks for one sync a day. Moving the download into GitHub Actions respected that, and made lookups instant and free.
 - **"14" shouldn't mean "anything with a 14 in it".** Collectr also matches set totals (a search for "charizard 14" shows a 150/147 card). I kept it to the start of the collector number, with the exact number ranked first, so the list stays short enough to scan by eye during a buy.
+- **"publishedOn" isn't a release date for every set.** My quick local test build (newest 12 sets) came back with POP Series and Nintendo Promos instead of the Mega Evolution sets, so search looked like it was missing every modern card. TCGplayer re-stamps 19 old and catch-all groups with the time it last touched them (`2026-11-19T20:00:05.6396883Z`), which sorted them as the newest sets. Real release dates are always midnight, so anything else now counts as "no date" and sorts last. The quick build is gone from the npm scripts, test builds are marked in the file, and the search screen shows how many sets and cards are loaded, so a partial file can't pass as "missing cards" again.
 - **TCGplayer lists more lookalikes.** Base Set and Base Set (Shadowless) share "4/102"; text alone can't tell them apart, so those scans go to review unless the visual double-check settles it. That's the accuracy-first behaviour we want.
 
 ## Numbers
 - 84 unit tests (21 new: file format, set and card name cleanup, number parsing, search, migration).
 - Build script checked against a fake TCGCSV server in four cases: first deploy, same-day reuse, TCGCSV down with a live file, TCGCSV down without one.
 - Browser run: 34 of 34, including market-only version chips, the TCGplayer product link, and "Update prices" picking up a new day's file.
-- Search: 14 new unit tests; a 26-check browser run (typing, ranking, tiles per version with no prices, confirm with quantity, price pulled on add, recent searches, sorting, 40-tile paging, back to the scanner).
+- Search and set dates: 18 more unit tests; a 28-check browser run (typing, ranking, tiles per version with no prices, confirm with quantity, price pulled on add, recent searches, sorting, 40-tile paging, back to the scanner).
 - Searching a full-size price file (30,000 cards) takes 3–10 ms per keystroke on a laptop.
 
 ## Next

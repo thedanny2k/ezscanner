@@ -14,7 +14,7 @@ const RECENT_KEY = 'ezscanner.recentSearches';
 const PAGE = 40;
 const ICON_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 4v4h4"/><path d="M12 8v4l3 2"/></svg>';
 
-const st = { open: false, q: '', cards: [], total: 0, tiles: [], shown: 0, sort: 'best', seq: 0, loading: false, msg: '', focused: false };
+const st = { open: false, q: '', cards: [], total: 0, tiles: [], shown: 0, sort: 'best', seq: 0, loading: false, msg: '', focused: false, info: null };
 let timer = null;
 let observer = null;
 
@@ -96,16 +96,21 @@ function renderMore() {
 
 function renderStatus() {
   const bucket = `Adding to <b>${esc(activeBucket().name)}</b>`;
+  const info = st.info;
+  const warn = info && info.partial
+    ? `<div class="swarn">Test price file: only the ${info.partial.limit} newest sets are loaded, so most cards are missing. Run <b>npm run prices</b> for every set.</div>`
+    : '';
   let html;
   if (st.loading) html = isLocal() && !st.cards.length ? 'Loading TCGplayer cards…' : 'Searching…';
   else if (st.msg) html = esc(st.msg);
   else if (!st.q.trim()) {
-    html = `Search by name, number or set: <i>charizard 14</i>, <i>pikachu 25/198</i>, <i>celebi skyridge</i>.<br>${bucket}`;
+    const loaded = info ? `<br>TCGplayer data: ${info.sets.toLocaleString('en-US')} sets · ${info.cards.toLocaleString('en-US')} cards · prices from ${esc(info.updated)}` : '';
+    html = `Search by name, number or set: <i>charizard 14</i>, <i>pikachu 25/198</i>, <i>celebi skyridge</i>.<br>${bucket}${loaded}`;
   } else {
     const more = st.total > st.cards.length ? ` (showing ${st.cards.length} of ${st.total}; add a number or set to narrow it)` : '';
     html = `${st.cards.length} card${st.cards.length === 1 ? '' : 's'}${more} · ${bucket}`;
   }
-  $('sStatus').innerHTML = html;
+  $('sStatus').innerHTML = warn + html;
   $('sSortBtn').classList.toggle('on', st.sort !== 'best');
 }
 
@@ -161,7 +166,9 @@ export function openSearch() {
   $('searchView').hidden = false;
   renderStatus();
   refreshQty();
-  if (isLocal() && provider().warm) provider().warm().catch(() => {});
+  const p = provider();
+  if (p.info) p.info().then((i) => { st.info = i; if (st.open) renderStatus(); }).catch(() => {});
+  else st.info = null;
   if (!st.q) setTimeout(() => $('sQ').focus(), 60);
 }
 

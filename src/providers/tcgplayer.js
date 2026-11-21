@@ -137,6 +137,13 @@ export default {
     return cards;
   },
 
+  /** What the loaded price file covers, so the app can show it (and warn about test builds). */
+  async info() {
+    const d = await load();
+    const f = d.file;
+    return { sets: f.groups.length, cards: f.cards.length, updated: (String(f.updated).match(/^(\d{4})-(\d{2})-(\d{2})/) || []).slice(1).join('/'), partial: f.partial || null };
+  },
+
   /** Starts loading the price file early (when the search screen opens). */
   warm() {
     return load().then(() => true);

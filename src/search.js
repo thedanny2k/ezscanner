@@ -88,11 +88,19 @@ export function scoreRow(row, q) {
   return s;
 }
 
-const byNewest = (a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0);
+/** Newest (or oldest) set first; sets with no known release date always go last. */
+const byDate = (newestFirst) => (a, b) => {
+  if (a.date === b.date) return 0;
+  if (!a.date) return 1;
+  if (!b.date) return -1;
+  return (a.date < b.date ? 1 : -1) * (newestFirst ? 1 : -1);
+};
+const byNewest = byDate(true);
+const byOldest = byDate(false);
 const COMPARE = {
   best: (a, b) => b.s - a.s || byNewest(a.r, b.r) || a.r.nkey - b.r.nkey,
   newest: (a, b) => byNewest(a.r, b.r) || a.r.nkey - b.r.nkey,
-  oldest: (a, b) => -byNewest(a.r, b.r) || a.r.nkey - b.r.nkey,
+  oldest: (a, b) => byOldest(a.r, b.r) || a.r.nkey - b.r.nkey,
   number: (a, b) => a.r.nkey - b.r.nkey || byNewest(a.r, b.r),
 };
 

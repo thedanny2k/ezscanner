@@ -12,6 +12,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - **Card search, Collectr style.** The search button opens a full-screen search: type "charizard 14" and every Charizard numbered 14… shows up (exact number first), "celebi sky" finds Celebi from Skyridge, "pikachu 25/198" finds exactly that card. Every word must match the name, set, set code or the start of the collector number, and results update as you type. Results are a two-column grid with one tile per version and no prices.
 - Tapping a tile opens "Is this the card?": pick the version and how many, then add. Only then is today's TCGplayer market price pulled and the cards go into the bucket. Tiles show how many of that version are already in the bucket.
 - Recent searches (this phone), sort by best match, newest set, oldest set or card number, and a camera button that goes straight back to the scanner.
+- The search screen shows what's loaded ("TCGplayer data: 222 sets · 31,402 cards · prices from …") and warns when a test price file with only some sets is in use.
 - `scripts/build-prices.mjs` (`npm run prices`), `src/providers/tcgplayer.js` and `tcgplayer-data.js`, with tests built on tcgcsv-shaped sample data.
 - If the AI can't load the candidate images, the double-check is skipped with a one-time notice instead of sending every scan to review.
 ### Fixed

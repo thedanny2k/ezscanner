@@ -58,7 +58,7 @@ Vanilla JavaScript modules (no build step) on GitHub Pages · IndexedDB today, S
 ```bash
 npm install
 npm test             # unit tests
-npm run prices:quick # TCGplayer prices for the 12 newest sets (npm run prices for all, ~2 min)
+npm run prices       # download TCGplayer prices for every set (~2–3 min; once a day is plenty)
 npx serve .          # open http://localhost:3000 (the laptop webcam works on localhost)
 ```
 
