@@ -14,6 +14,7 @@ export const DEFAULTS = {
   defaultPct: 70,
   activeBucket: '',
   tapTipSeen: false,
+  theme: 'dark', // 'dark' | 'light' | 'system' (Settings → Appearance)
   migrated: 1,
 };
 

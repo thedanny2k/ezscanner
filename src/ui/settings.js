@@ -6,6 +6,7 @@ import { APP_VERSION } from '../config.js';
 import { MODELS, createAi, directTransport, modelShortName } from '../recognize/ai.js';
 import { PROVIDERS } from '../providers/index.js';
 import { accuracyByModel } from '../stats.js';
+import { THEMES, applyTheme } from '../theme.js';
 import { $, esc, clamp, parseMoney } from './dom.js';
 
 function statsHtml() {
@@ -20,8 +21,13 @@ export function initSettings(onSaved) {
   $('providerSel').innerHTML = Object.values(PROVIDERS).map((p) =>
     `<option value="${p.id}"${p.id === 'scrydex' ? ' disabled' : ''}>${esc(p.label)}${p.id === 'tcgplayer' ? ' · recommended' : p.id === 'tcgdex' ? ' · not verified yet' : p.id === 'scrydex' ? ' · not built yet' : ''}</option>`).join('');
 
+  $('themeSel').innerHTML = Object.entries(THEMES).map(([id, label]) => `<option value="${id}">${esc(label)}</option>`).join('');
+  // Preview the theme as soon as it's picked; Cancel puts the saved one back.
+  $('themeSel').addEventListener('change', () => applyTheme($('themeSel').value));
+
   $('settingsBtn').addEventListener('click', () => {
     const s = app.settings;
+    $('themeSel').value = s.theme || 'dark';
     $('aiKeyInput').value = s.aiKey;
     $('aiModel').value = s.model;
     $('verifyMode').value = s.verify;
@@ -35,9 +41,11 @@ export function initSettings(onSaved) {
     $('settings').showModal();
   });
   $('settingsCancel').addEventListener('click', () => $('settings').close());
+  $('settings').addEventListener('close', () => applyTheme(app.settings.theme)); // Cancel, Esc or Save
   $('settingsSave').addEventListener('click', () => {
     const d = parseMoney($('defPct').value);
     saveSettings(app.settings, {
+      theme: $('themeSel').value,
       aiKey: $('aiKeyInput').value.trim(),
       model: $('aiModel').value,
       verify: $('verifyMode').value,

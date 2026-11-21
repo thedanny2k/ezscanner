@@ -14,7 +14,8 @@ I run a card repacking business. Buying a lot means pricing hundreds of cards fa
 - **AI identification with verification.** Claude reads the card, a card database confirms it, and a visual double-check against official card images confirms the exact version.
 - **Search like Collectr.** Type "charizard 14" or "celebi sky" and pick the card from a grid, one tile per version; its TCGplayer market price is pulled when you confirm it.
 - **Needs review.** Anything under 85% confidence is flagged and left out of the totals until a person confirms it.
-- **Lots ("buckets").** Market value, what we paid, profit, and an offer calculator that works in % or dollars.
+- **Lots ("buckets").** Market value, what we paid, profit, and an offer calculator that works in % or dollars, plus an everyday calculator that can pull in the bucket's numbers.
+- **Light and dark mode**, and a full-screen camera with a see-through bottom panel.
 - **TCGplayer's Near Mint market price.** When a card goes into a bucket, the app reads its Near Mint Market Price live from TCGplayer through a small Supabase function. A daily copy of TCGplayer's price guide, rebuilt by GitHub Actions, powers search and scanning and is the fallback, labelled "daily".
 - **Measured accuracy.** Every scan records its model and whether a person had to fix it.
 - **Coming in v0.3:** a shared team database with sign-in (Supabase), with API keys moved off phones.

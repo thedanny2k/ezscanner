@@ -3,6 +3,12 @@
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow the milestones in [ROADMAP.md](ROADMAP.md).
 
 ## [Unreleased]
+### UI update 1
+- **See-through scanner.** The camera now fills the whole screen. The header and the bottom panel float over it as frosted glass, like Phynite, so you keep seeing the camera behind your list. Opening the panel all the way makes it nearly solid so the numbers stay easy to read.
+- **Softer scan frame.** Thin rounded corners instead of a dark box, a lighter "Tap to Scan" hint, a glass status chip, and a small squeeze of the frame when you tap so a scan feels like a shutter press. The frame sits in the part of the camera you can see, between the header and the panel.
+- **Light and dark mode.** Settings → Appearance: Dark (default), Light, or Match phone. It previews as you pick, Cancel undoes it, and the app opens in your choice with no dark flash.
+- **Everyday calculator** (calculator button in the bottom bar), separate from the offer calculator (now the % button). × and ÷ before + and −, pricing-style % (200 + 10% = 220), ±, ⌫, one-tap insert of the bucket's Market, Offer and Paid, tap the answer to copy it, and keyboard support on a laptop.
+
 ### Added — Near Mint prices, live
 - Cards are priced at TCGplayer's **Near Mint** Market Price, read live from the same place the product page gets it, when a scan finishes, a searched card is confirmed, a card is changed, a CSV is imported, or you tap "Update prices" ([decision 0008](docs/decisions/0008-near-mint-prices-from-tcgplayer-site.md)).
 - `supabase/functions/tcg-price`: a small Supabase Edge Function in between (phones can't call TCGplayer directly). Up to 50 cards per call, 4 at a time, 10-minute cache. Set up in the dashboard in about 10 minutes ([docs/supabase-setup.md](docs/supabase-setup.md)).

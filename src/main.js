@@ -16,6 +16,8 @@ import { refreshItemOffers, renderAll, renderItem, renderItems, renderSummary } 
 import { openSheet, refreshOpenChange, switchBucket } from './ui/sheets.js';
 import { initSettings } from './ui/settings.js';
 import { initSearch, openSearch } from './ui/search.js';
+import { initCalculator, openCalculator } from './ui/calculator.js';
+import { applyTheme, followPhoneTheme } from './theme.js';
 import { LIVE_PRICES_URL } from './config.js';
 import { createLiveClient, isLive, refreshItemsLive } from './livePrices.js';
 
@@ -138,18 +140,27 @@ async function openCamera() {
   updateChip();
 }
 
+/**
+ * Places the card frame in the part of the camera you can see: below the header and status
+ * chip, above the see-through bottom panel. The camera itself fills the whole screen.
+ */
 function layoutGuide() {
   const g = $('guide');
-  const w = $('cam').clientWidth;
-  const h = $('cam').clientHeight;
-  const topPad = 46;
-  const availH = h - topPad - 34;
-  if (availH < 120) { g.hidden = true; $('tapHint').hidden = true; return; }
+  const camR = $('cam').getBoundingClientRect();
+  const sheetTop = $('sheet').getBoundingClientRect().top;
+  document.documentElement.style.setProperty('--sheet-h', Math.max(0, camR.bottom - sheetTop) + 'px');
+  const top = $('hdr').getBoundingClientRect().bottom - camR.top + 30; // room for the status chip
+  const bottom = sheetTop - camR.top - 20;
+  const availH = bottom - top;
+  const w = camR.width;
+  if (availH < 120 || $('app').classList.contains('expanded')) { g.hidden = true; $('tapHint').hidden = true; return; }
   g.hidden = false;
   $('tapHint').hidden = !!app.settings.tapTipSeen;
-  const gh = Math.min(availH, (w * 0.84 * 88) / 63);
+  const gh = Math.min(availH, (w * 0.86 * 88) / 63);
   const gw = (gh * 63) / 88;
-  Object.assign(g.style, { width: gw + 'px', height: gh + 'px', left: (w - gw) / 2 + 'px', top: topPad + (availH - gh) / 2 + 'px' });
+  const gt = top + (availH - gh) / 2;
+  Object.assign(g.style, { width: gw + 'px', height: gh + 'px', left: (w - gw) / 2 + 'px', top: gt + 'px' });
+  $('tapHint').style.top = gt + gh / 2 + 'px';
 }
 
 function capture() {
@@ -162,6 +173,9 @@ function capture() {
   f.classList.remove('go');
   void f.offsetWidth;
   f.classList.add('go');
+  const g = $('guide'); // the frame gives a little squeeze, so a tap feels like a shutter press
+  g.classList.add('snap');
+  setTimeout(() => g.classList.remove('snap'), 160);
   if (!app.settings.tapTipSeen) { saveSettings(app.settings, { tapTipSeen: true }); $('tapHint').hidden = true; }
   addScan(canvas);
 }
@@ -270,6 +284,7 @@ async function deleteBucket() {
 function toggleSheet(force) {
   const on = typeof force === 'boolean' ? force : !$('app').classList.contains('expanded');
   $('app').classList.toggle('expanded', on);
+  if (on) layoutGuide(); // hide the frame right away; it comes back after the panel closes
   $('chevBtn').setAttribute('aria-label', on ? 'Back to camera' : 'Open bucket details');
   if (on) $('list').scrollTop = 0;
 }
@@ -370,6 +385,8 @@ function wire() {
 
   initSettings(() => { warmTextReader(); updateChip(); });
   initSearch();
+  initCalculator();
+  $('calcToolBtn').addEventListener('click', openCalculator);
 
   const setHeaderVar = () => document.documentElement.style.setProperty('--hh', $('hdr').offsetHeight + 'px');
   setHeaderVar();
@@ -383,6 +400,8 @@ function wire() {
 /* ---------- start ---------- */
 
 async function start() {
+  applyTheme(app.settings.theme);
+  followPhoneTheme(() => app.settings.theme);
   app.storage = createStorage('local');
   app.state = await app.storage.load();
   app.photos = await app.storage.loadPhotos();

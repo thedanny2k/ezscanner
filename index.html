@@ -10,6 +10,15 @@
 <meta name="apple-mobile-web-app-title" content="EZScanner">
 <link rel="apple-touch-icon" href="assets/icon.png">
 <link rel="icon" href="assets/icon.png">
+<script>
+  // Apply the saved light/dark choice before the page draws (src/theme.js does the same later).
+  try {
+    var c = (JSON.parse(localStorage.getItem('ezscanner.settings') || '{}').theme) || 'dark';
+    var t = c === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : c;
+    document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark';
+    if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#eceef2');
+  } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+</script>
 <link rel="stylesheet" href="src/styles.css">
 <title>EZScanner</title>
 </head>
@@ -57,6 +66,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
         </button>
         <button class="txtbtn" id="calcBtn" type="button" aria-label="Offer calculator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+        </button>
+        <button class="txtbtn" id="calcToolBtn" type="button" aria-label="Calculator">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5v3M8.5 18h.01M12 18h.01"/></svg>
         </button>
       </div>
@@ -131,8 +143,34 @@
   <div class="bs-body" id="bsBody"></div>
 </dialog>
 
+<dialog class="bs calcd" id="calcDlg" aria-label="Calculator">
+  <div class="bs-head"><h2>Calculator</h2><button class="done" id="calcDone" type="button">Done</button></div>
+  <div class="bs-body">
+    <div class="cdisp" id="cDisp" role="button" tabindex="0" title="Tap to copy"><div class="cexpr" id="cExpr"></div><div class="cres" id="cRes">0</div></div>
+    <div class="cchips" id="cChips" hidden></div>
+    <div class="ckeys" id="cKeys">
+      <button type="button" class="fn" data-k="clear" id="cClear">AC</button>
+      <button type="button" class="fn" data-k="back" aria-label="Delete">⌫</button>
+      <button type="button" class="fn" data-k="%">%</button>
+      <button type="button" class="op" data-k="/" aria-label="Divide">÷</button>
+      <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button>
+      <button type="button" class="op" data-k="*" aria-label="Times">×</button>
+      <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button>
+      <button type="button" class="op" data-k="-" aria-label="Minus">−</button>
+      <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
+      <button type="button" class="op" data-k="+" aria-label="Plus">+</button>
+      <button type="button" class="fn" data-k="neg" aria-label="Plus or minus">±</button>
+      <button type="button" data-k="0">0</button>
+      <button type="button" data-k=".">.</button>
+      <button type="button" class="eq" data-k="=" aria-label="Equals">=</button>
+    </div>
+  </div>
+</dialog>
+
 <dialog class="mid" id="settings">
   <h2>Settings</h2>
+  <label class="f" for="themeSel">Appearance</label>
+  <select id="themeSel"></select>
   <label class="f" for="aiKeyInput">AI card recognition: Claude API key</label>
   <input id="aiKeyInput" type="password" placeholder="sk-ant-…" autocapitalize="off" autocomplete="off" spellcheck="false">
   <div class="hint">Saved only on this phone, until team sign-in arrives. Use a key with prepaid credits and auto-reload off. Without a key the app uses the free text reader.</div>
