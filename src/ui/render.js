@@ -4,6 +4,11 @@ import { app, activeBucket, findItem } from '../state.js';
 import { bucketStats, itemOffer } from '../buckets.js';
 import { PRINTINGS, fmtNum, marketOf } from '../cards.js';
 import { $, esc, money, num2, pctFmt, fmtDate, ICON_CHANGE, ICON_SEARCH } from './dom.js';
+import { isLive } from '../livePrices.js';
+
+/** "daily" next to a price that isn't TCGplayer's live Near Mint number (only when live prices are set up). */
+const dailyTag = (it) => (app.live && app.live.enabled && typeof marketOf(it) === 'number' && !isLive(it)
+  ? '<span class="ptag" title="TCGplayer daily price, not Near Mint–specific">daily</span>' : '');
 
 const needsAttention = (it) => it.status === 'review' || it.status === 'failed';
 const visible = (b) => (app.filter === 'review' ? b.items.filter(needsAttention) : b.items);
@@ -46,7 +51,7 @@ function itemHtml(b, it) {
     match = c.img ? `<img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy">` : '<div class="ph">?</div>';
     title = `${esc(c.name)} – ${esc(fmtNum(c))}`;
     sub = `${esc(c.setCode || c.setName)} · ${esc(c.setName)} · ${esc(PRINTINGS[it.printing] || it.printing || 'No price')}`;
-    extra = `<div class="prow"><span class="pill">${money(marketOf(it))}</span><span class="ioffer">${offerHtml(b, it)}</span></div>`;
+    extra = `<div class="prow"><span class="pill">${money(marketOf(it))}</span>${dailyTag(it)}<span class="ioffer">${offerHtml(b, it)}</span></div>`;
     meta = it.status === 'review'
       ? `<span class="tag">Needs review</span>${confHtml(it)}`
       : `<button class="change" type="button">${ICON_CHANGE} Change</button>${confHtml(it)}`;

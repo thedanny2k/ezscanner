@@ -8,6 +8,7 @@ import { PROVIDERS, getProvider, searchText } from '../providers/index.js';
 import { readExport } from '../csv.js';
 import { $, esc, money, fmtDate, toast, ask } from './dom.js';
 import { removeItemEl, renderAll, renderItem, renderSummary } from './render.js';
+import { isLive } from '../livePrices.js';
 
 const sheet = { mode: null, id: null, results: null, msg: '', query: '', pick: null };
 const provider = () => getProvider(app.settings.provider);
@@ -44,6 +45,18 @@ function wireSearch(rerender, focus) {
 
 /* ---------- Change: fix the match or version of one card ---------- */
 
+const timeOf = (iso) => new Date(iso).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+
+/** Where this card's price comes from: live Near Mint, or the daily file. */
+function priceSourceLine(c, printing) {
+  const p = (c.prices || {})[printing] || {};
+  if (p.live && c.liveAt) return `TCGplayer Near Mint market price · checked ${esc(timeOf(c.liveAt))}`;
+  if (!c.updatedAt) return '';
+  if (c.source !== 'tcgplayer') return `Prices updated ${esc(c.updatedAt)}`;
+  return `TCGplayer daily market price · ${esc(c.updatedAt)}${app.live && app.live.enabled ? ' · not Near Mint–specific' : ''}`;
+}
+const dailyNote = (c, k) => (app.live && app.live.enabled && !((c.prices || {})[k] || {}).live ? ' · daily' : '');
+
 function renderChange() {
   const found = findItem(sheet.id);
   if (!found) { $('bs').close(); return; }
@@ -59,14 +72,14 @@ function renderChange() {
       ${ph ? `<img src="${esc(ph)}" alt="Your photo">` : ''}
       <img src="${esc(c.imgLarge || c.img)}" alt="">
       <div><div class="t">${esc(c.name)}</div><div class="s">${esc(c.setName)} · ${esc(fmtNum(c))}${c.rarity ? ' · ' + esc(c.rarity) : ''}</div>
-      <div class="s">${c.updatedAt ? (c.source === 'tcgplayer' ? 'TCGplayer market price, updated ' : 'Prices updated ') + esc(c.updatedAt) : ''}</div>
+      <div class="s">${priceSourceLine(c, it.printing)}</div>
       <a href="${esc(tcgplayerSearchUrl(c))}" target="_blank" rel="noopener">View on TCGplayer ›</a></div>
     </div>`;
     if (it.status === 'review') html += '<button class="confirm" type="button" id="confirmBtn">✓ This is the right card and version</button>';
     const keys = printingKeys(c);
     html += '<div class="sec">Version</div>';
     html += keys.length
-      ? `<div class="chips">${keys.map((k) => `<button class="pchip${k === it.printing ? ' on' : ''}" type="button" data-p="${esc(k)}"><b>${money((c.prices[k] || {}).market)}</b><span>${esc(PRINTINGS[k] || k)}</span></button>`).join('')}</div>`
+      ? `<div class="chips">${keys.map((k) => `<button class="pchip${k === it.printing ? ' on' : ''}" type="button" data-p="${esc(k)}"><b>${money((c.prices[k] || {}).market)}</b><span>${esc(PRINTINGS[k] || k)}${dailyNote(c, k)}</span></button>`).join('')}</div>`
       : '<p class="note">No TCGplayer price on file for this card.</p>';
   } else {
     html += `<div class="compare">${ph ? `<img src="${esc(ph)}" alt="Your photo">` : ''}<div class="s">${esc(it.error || '')}${it.read ? '<br>Read: ' + esc(it.read) : ''}</div></div>`;
@@ -109,6 +122,7 @@ function renderChange() {
     save();
     renderChange();
     $('bsBody').scrollTop = 0;
+    if (changed && app.live) app.live.update([it]);
   }));
   if ($('moveBtn')) $('moveBtn').addEventListener('click', async () => {
     const to = bucketOf($('moveSel').value);
@@ -187,6 +201,12 @@ async function addPicked(pk) {
     const [fresh] = p ? await p.getByIds([card.sourceId], { key: app.settings.tcgKey }) : [];
     if (fresh) card = fresh;
   } catch (e) { /* offline: use the copy already loaded */ }
+  // ...and TCGplayer's Near Mint market price, live, when that's set up.
+  if (app.live && app.live.enabled) {
+    const probe = { status: 'done', card, printing: pk.printing };
+    await app.live.price([probe], { fresh: true });
+    card = probe.card;
+  }
   const printing = (card.prices[pk.printing] || !printingKeys(card).length) ? pk.printing : defaultPrinting(card);
   const b = activeBucket();
   const now = new Date().toISOString();
@@ -200,7 +220,8 @@ async function addPicked(pk) {
   }
   renderSummary();
   const version = PRINTINGS[printing] || printing;
-  toast(`Added ${pk.qty > 1 ? pk.qty + ' × ' : ''}${card.name}${version ? ' · ' + version : ''} · ${money(marketOf(added[0]))}${pk.qty > 1 ? ' each' : ''}`);
+  const kind = isLive(added[0]) ? ' Near Mint' : app.live && app.live.enabled ? ' (daily)' : '';
+  toast(`Added ${pk.qty > 1 ? pk.qty + ' × ' : ''}${card.name}${version ? ' · ' + version : ''} · ${money(marketOf(added[0]))}${kind}${pk.qty > 1 ? ' each' : ''}`);
   if ($('bs').open) $('bs').close();
   if (pk.onAdded) pk.onAdded(added);
 }
@@ -282,6 +303,7 @@ async function importCsv(file) {
     await app.storage.saveBucket(b);
     switchBucket(b.id);
     $('bs').close();
+    if (app.live) app.live.update(b.items, { fresh: true });
     toast(`Imported ${b.items.length} cards${missing ? ` (${missing} not found)` : ''} with today’s prices`);
   } catch (e) {
     toast(e.message || 'Import failed');

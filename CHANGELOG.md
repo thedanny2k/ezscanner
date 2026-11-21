@@ -3,6 +3,12 @@
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow the milestones in [ROADMAP.md](ROADMAP.md).
 
 ## [Unreleased]
+### Added — Near Mint prices, live
+- Cards are priced at TCGplayer's **Near Mint** Market Price, read live from the same place the product page gets it, when a scan finishes, a searched card is confirmed, a card is changed, a CSV is imported, or you tap "Update prices" ([decision 0008](docs/decisions/0008-near-mint-prices-from-tcgplayer-site.md)).
+- `supabase/functions/tcg-price`: a small Supabase Edge Function in between (phones can't call TCGplayer directly). Up to 50 cards per call, 4 at a time, 10-minute cache. Set up in the dashboard in about 10 minutes ([docs/supabase-setup.md](docs/supabase-setup.md)).
+- Cards with Holofoil **and** Reverse Holo keep their daily price, labelled **daily**, because TCGplayer gives one "Foil" number for both. The Change sheet says where each price comes from and when it was checked.
+- If the price service can't be reached, "Update prices" keeps the earlier Near Mint numbers and says so.
+- `scripts/probe-tcgplayer.mjs` and the "Probe TCGplayer prices" workflow: a one-off check of what TCGplayer's services return, from your computer or a server.
 ### Changed
 - Prices now come straight from TCGplayer's price guide, and the app shows only TCGplayer's **Market Price** for each version: the number we're paid off. A GitHub Action rebuilds `prices/cards.json` from tcgcsv.com (a public mirror of TCGplayer's API) every day after TCGplayer's numbers refresh, and publishes it with the site. Lookups are instant, free and need no key ([decision 0007](docs/decisions/0007-tcgplayer-market-price-daily-file.md)).
 - Phones that saved the old default price source are moved to TCGplayer once. Picking another source in Settings afterwards sticks.

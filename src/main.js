@@ -16,11 +16,60 @@ import { refreshItemOffers, renderAll, renderItem, renderItems, renderSummary } 
 import { openSheet, refreshOpenChange, switchBucket } from './ui/sheets.js';
 import { initSettings } from './ui/settings.js';
 import { initSearch, openSearch } from './ui/search.js';
+import { LIVE_PRICES_URL } from './config.js';
+import { createLiveClient, isLive, refreshItemsLive } from './livePrices.js';
 
 const PRESETS = [50, 60, 65, 70, 75, 80, 85, 90];
 const cam = { on: false, track: null, torchOn: false, lastTap: 0 };
 let ocrReady = false;
 let warnedCheckSkipped = false;
+
+/* ---------- live Near Mint prices (docs/decisions/0008) ---------- */
+
+const liveClient = createLiveClient({ url: LIVE_PRICES_URL });
+let liveWarnedAt = 0;
+const liveQueue = new Set();
+let liveTimer = null;
+
+app.live = {
+  get enabled() { return liveClient.enabled; },
+  /** Prices items live without saving or drawing (e.g. a card about to be added). */
+  async price(items, opts) {
+    try {
+      return { changed: await refreshItemsLive(items, liveClient, opts) };
+    } catch (e) {
+      return { changed: [], error: e.message };
+    }
+  },
+  /** Prices bucket items live, then saves and redraws the ones that changed. */
+  async update(items, opts) {
+    const r = await app.live.price(items, opts);
+    for (const it of r.changed) {
+      const found = findItem(it.id);
+      if (!found) continue;
+      app.storage.saveItem(found.b.id, it);
+      renderItem(it);
+      refreshOpenChange(it.id);
+    }
+    if (r.changed.length) renderSummary();
+    if (r.error && Date.now() - liveWarnedAt > 60000) {
+      liveWarnedAt = Date.now();
+      toast(`${r.error} Showing daily prices for now.`);
+    }
+    return r;
+  },
+  /** Scans finish one by one; price them together a moment later. */
+  queue(item) {
+    if (!liveClient.enabled) return;
+    liveQueue.add(item);
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(() => {
+      const items = [...liveQueue];
+      liveQueue.clear();
+      app.live.update(items);
+    }, 300);
+  },
+};
 
 /* ---------- AI + scan pipeline ---------- */
 
@@ -39,6 +88,7 @@ app.scanner = createScanner({
     renderItem(item);
     renderSummary();
     if (finished) refreshOpenChange(item.id);
+    if (finished && item.card && item.status !== 'failed') app.live.queue(item);
     if (finished && item.checkSkipped && !warnedCheckSkipped) {
       warnedCheckSkipped = true;
       toast('Double-check skipped: the AI couldn’t load TCGplayer’s card images. Matching by text only.');
@@ -168,6 +218,7 @@ async function refreshPrices() {
   for (const it of b.items) if (it.card) (bySource[it.card.source] ||= []).push(it.card.sourceId);
   if (!Object.keys(bySource).length) return;
   $('refreshBtn').textContent = 'Updating…';
+  const before = new Map(b.items.map((it) => [it.id, it.card && it.card.prices]));
   try {
     const fresh = {};
     for (const [source, ids] of Object.entries(bySource)) {
@@ -180,10 +231,22 @@ async function refreshPrices() {
       Object.assign(it.card, { prices: c.prices, updatedAt: c.updatedAt });
       if (!c.prices[it.printing]) it.printing = defaultPrinting(c);
     }
+    let note = '';
+    if (app.live.enabled) {
+      const r = await app.live.price(b.items, { fresh: true });
+      if (r.error) {
+        // Couldn't reach TCGplayer: keep the Near Mint prices from earlier rather than drop to daily ones.
+        for (const it of b.items) {
+          for (const [k, p] of Object.entries(before.get(it.id) || {})) if (p && p.live && it.card) it.card.prices[k] = p;
+        }
+      }
+      const live = b.items.filter(isLive).length;
+      note = r.error ? ` (${r.error} Kept earlier Near Mint prices.)` : ` · ${live} Near Mint live`;
+    }
     saveBucket();
     renderItems();
     renderSummary();
-    toast('Prices updated');
+    toast(`Prices updated${note}`);
   } catch (e) {
     toast(e.message);
   }
