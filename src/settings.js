@@ -14,14 +14,34 @@ export const DEFAULTS = {
   defaultPct: 70,
   activeBucket: '',
   tapTipSeen: false,
+  migrated: 1,
 };
 
-export function loadSettings() {
-  try {
-    return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') };
-  } catch (e) {
-    return { ...DEFAULTS };
+/**
+ * One-time changes for phones that saved settings with an older version.
+ * 1 (v0.3): everyone moves to TCGplayer's own market price, the number the team is paid off.
+ */
+export function migrate(saved) {
+  const s = { ...saved };
+  if ((s.migrated || 0) < 1) {
+    s.provider = 'tcgplayer';
+    s.migrated = 1;
   }
+  return s;
+}
+
+export function loadSettings() {
+  let saved = {};
+  try {
+    saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {};
+  } catch (e) { /* unreadable: start fresh */ }
+  if (typeof saved !== 'object') saved = {};
+  const first = !Object.keys(saved).length;
+  const s = { ...DEFAULTS, ...(first ? {} : migrate(saved)) };
+  if (!first && s.migrated !== saved.migrated) {
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* private mode */ }
+  }
+  return s;
 }
 
 /** Merges a change into the live settings object and saves it. */

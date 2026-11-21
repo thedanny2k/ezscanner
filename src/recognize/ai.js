@@ -126,12 +126,20 @@ export function createAi(send, encode = canvasToJpegB64) {
     async verify(canvas, cards, model) {
       const usable = cards.filter((c) => c.imgLarge || c.img).slice(0, 3);
       if (!usable.length) return null;
-      const r = await send({
-        task: 'verify',
-        model,
-        image: encode(canvas, 1000),
-        candidates: usable.map((c) => ({ label: `${c.name} · ${c.setName} · ${fmtNum(c)}`, url: c.imgLarge || c.img })),
-      });
+      let r;
+      try {
+        r = await send({
+          task: 'verify',
+          model,
+          image: encode(canvas, 1000),
+          candidates: usable.map((c) => ({ label: `${c.name} · ${c.setName} · ${fmtNum(c)}`, url: c.imgLarge || c.img })),
+        });
+      } catch (e) {
+        // The API fetches candidate images itself. If it can't load them, the check can't run at
+        // all; say so, so the scan keeps its text-match confidence instead of a blanket review.
+        if (/download|could not (?:fetch|process|load) (?:the )?image|unable to (?:fetch|load)|invalid image|url/i.test(e.message || '')) e.imagesUnavailable = true;
+        throw e;
+      }
       const i = Number.isInteger(r.match) ? r.match - 1 : -1;
       return { card: usable[i] || null, finish: r.finish || 'unknown', sure: r.sure !== false };
     },

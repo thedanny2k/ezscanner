@@ -12,9 +12,10 @@ I run a card repacking business. Buying a lot means pricing hundreds of cards fa
 
 - **Live camera scanning.** Tap to scan; keep scanning while earlier cards are identified.
 - **AI identification with verification.** Claude reads the card, a card database confirms it, and a visual double-check against official card images confirms the exact version.
+- **Search like Collectr.** Type "charizard 14" or "celebi sky" and pick the card from a grid, one tile per version; its TCGplayer market price is pulled when you confirm it.
 - **Needs review.** Anything under 85% confidence is flagged and left out of the totals until a person confirms it.
 - **Lots ("buckets").** Market value, what we paid, profit, and an offer calculator that works in % or dollars.
-- **Swappable price data.** Price sources sit behind one interface, because the original one is being shut down.
+- **TCGplayer's own market price.** A GitHub Action pulls TCGplayer's price guide once a day and publishes it with the app, so every card shows the Market Price on its TCGplayer page, per version. Price sources sit behind one interface, so this can be swapped.
 - **Measured accuracy.** Every scan records its model and whether a person had to fix it.
 - **Coming in v0.3:** a shared team database with sign-in (Supabase), with API keys moved off phones.
 
@@ -24,7 +25,7 @@ I run a card repacking business. Buying a lot means pricing hundreds of cards fa
 flowchart LR
   A[Tap to scan] --> B[Crop to card] --> C[Claude reads card] --> D[Find candidates<br/>price provider]
   D --> E[Visual double-check] --> F{≥ 85% match?}
-  F -- yes --> G[Added to bucket<br/>TCGplayer price]
+  F -- yes --> G[Added to bucket<br/>TCGplayer market price]
   F -- no --> H[Needs review] --> G
 ```
 
@@ -50,14 +51,15 @@ This repo documents how the project was built, not just the result:
 
 ## Tech
 
-Vanilla JavaScript modules (no build step) on GitHub Pages · IndexedDB today, Supabase (Postgres, auth, row-level security, Edge Functions) in v0.3 · Claude vision API · TCGdex / pokemontcg.io for card data and TCGplayer prices · Tesseract.js fallback · Vitest + GitHub Actions.
+Vanilla JavaScript modules (no build step) on GitHub Pages · IndexedDB today, Supabase (Postgres, auth, row-level security, Edge Functions) in v0.3 · Claude vision API · TCGplayer price guide via tcgcsv.com, rebuilt daily by GitHub Actions · Tesseract.js fallback · Vitest + GitHub Actions.
 
 ## Run it locally
 
 ```bash
 npm install
-npm test          # unit tests
-npx serve .       # open http://localhost:3000 (the laptop webcam works on localhost)
+npm test             # unit tests
+npm run prices:quick # TCGplayer prices for the 12 newest sets (npm run prices for all, ~2 min)
+npx serve .          # open http://localhost:3000 (the laptop webcam works on localhost)
 ```
 
 Setting up your own team database: [docs/supabase-setup.md](docs/supabase-setup.md).
@@ -68,6 +70,6 @@ Target design: API keys live only in Supabase secrets and are used by an Edge Fu
 
 ## Credits
 
-Card data and prices: [TCGdex](https://tcgdex.dev), [Pokémon TCG API](https://pokemontcg.io). Card recognition: [Claude](https://www.anthropic.com/claude). Built with AI-assisted development (Claude); requirements, decisions, testing and deployment are mine.
+Prices and card data: [TCGplayer](https://www.tcgplayer.com) market prices via [TCGCSV](https://tcgcsv.com); [Pokémon TCG API](https://pokemontcg.io) and [TCGdex](https://tcgdex.dev) as alternatives. Card recognition: [Claude](https://www.anthropic.com/claude). Built with AI-assisted development (Claude); requirements, decisions, testing and deployment are mine.
 
 Not affiliated with, endorsed by or sponsored by Nintendo, The Pokémon Company, Creatures, GAME FREAK or TCGplayer.

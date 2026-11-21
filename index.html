@@ -100,6 +100,30 @@
   </section>
 </div>
 
+<section class="search" id="searchView" hidden aria-label="Search cards">
+  <div class="sbar">
+    <button class="scam" id="sCam" type="button" aria-label="Back to the scanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.7l1.4-2h4.8l1.4 2h1.7A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.5"/></svg>
+    </button>
+    <form class="sfield" id="sForm" autocomplete="off" role="search">
+      <input id="sQ" type="search" enterkeyhint="search" placeholder="Name, number or set" aria-label="Search cards" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <button type="button" class="sclear" id="sClear" aria-label="Clear search" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </form>
+    <button class="sicon" id="sSortBtn" type="button" aria-label="Sort results">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+    </button>
+    <div class="srecent" id="sRecent" hidden></div>
+    <div class="ssort" id="sSort" hidden></div>
+  </div>
+  <div class="sres" id="sRes">
+    <div class="sstatus" id="sStatus"></div>
+    <div class="sgrid" id="sGrid"></div>
+    <div class="smore" id="sMore"></div>
+  </div>
+</section>
+
 <div class="toast" id="toast"></div>
 
 <dialog class="bs" id="bs">

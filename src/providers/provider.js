@@ -1,12 +1,12 @@
 // provider.js — the contract every price source implements.
-// Swapping TCGdex, Scrydex or pokemontcg.io is a settings change because the rest of the
+// Swapping TCGplayer, TCGdex, Scrydex or pokemontcg.io is a settings change because the rest of the
 // app only ever talks to this shape. See docs/decisions/0003-swappable-price-provider.md.
 
 /**
  * A card in the app's own shape. Providers convert their data into this.
  * @typedef {Object} Card
  * @property {string} id             `${source}:${sourceId}`, unique across providers
- * @property {string} source         provider id: 'tcgdex' | 'scrydex' | 'pokemontcgio'
+ * @property {string} source         provider id: 'tcgplayer' | 'tcgdex' | 'scrydex' | 'pokemontcgio'
  * @property {string} sourceId       the card's id inside that provider
  * @property {string} name           as printed, e.g. "Pikachu ex"
  * @property {string} number         collector number without the total, e.g. "25" or "TG05"

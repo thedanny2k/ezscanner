@@ -1,4 +1,4 @@
-// ui/sheets.js — the three bottom sheets: fix a card ("Change"), add by search, and the buckets list.
+// ui/sheets.js — the bottom sheets: fix a card ("Change"), confirm a searched card ("Pick"), and the buckets list.
 
 import { app, activeBucket, bucketOf, findItem } from '../state.js';
 import { saveSettings } from '../settings.js';
@@ -9,7 +9,7 @@ import { readExport } from '../csv.js';
 import { $, esc, money, fmtDate, toast, ask } from './dom.js';
 import { removeItemEl, renderAll, renderItem, renderSummary } from './render.js';
 
-const sheet = { mode: null, id: null, results: null, msg: '', query: '' };
+const sheet = { mode: null, id: null, results: null, msg: '', query: '', pick: null };
 const provider = () => getProvider(app.settings.provider);
 
 function candHtml(c, on) {
@@ -59,7 +59,7 @@ function renderChange() {
       ${ph ? `<img src="${esc(ph)}" alt="Your photo">` : ''}
       <img src="${esc(c.imgLarge || c.img)}" alt="">
       <div><div class="t">${esc(c.name)}</div><div class="s">${esc(c.setName)} · ${esc(fmtNum(c))}${c.rarity ? ' · ' + esc(c.rarity) : ''}</div>
-      <div class="s">${c.updatedAt ? 'Prices updated ' + esc(c.updatedAt) : ''}</div>
+      <div class="s">${c.updatedAt ? (c.source === 'tcgplayer' ? 'TCGplayer market price, updated ' : 'Prices updated ') + esc(c.updatedAt) : ''}</div>
       <a href="${esc(tcgplayerSearchUrl(c))}" target="_blank" rel="noopener">View on TCGplayer ›</a></div>
     </div>`;
     if (it.status === 'review') html += '<button class="confirm" type="button" id="confirmBtn">✓ This is the right card and version</button>';
@@ -133,28 +133,76 @@ function renderChange() {
   wireSearch(renderChange);
 }
 
-/* ---------- Add: search and add cards by hand ---------- */
+/* ---------- Pick: confirm a card found on the search screen, then add it ---------- */
 
-function renderAdd() {
-  $('bsTitle').textContent = 'Search cards';
-  let html = searchFormHtml('e.g. charizard 4/102 or umbreon vmax');
-  html += `<p class="note">Adding to <b>${esc(activeBucket().name)}</b></p>`;
-  if (sheet.msg) html += `<p class="note">${esc(sheet.msg)}</p>`;
-  if (sheet.results && sheet.results.length) html += `<div class="sec">Tap a card to add it</div><div class="grid">${sheet.results.map((c) => candHtml(c, false)).join('')}</div>`;
-  else if (!sheet.msg) html += '<p class="note">Type a name, a number like 25/198, or both.</p>';
+/**
+ * Opens the confirm sheet for a card tapped on the search screen. Nothing is priced until the
+ * person confirms: then today's TCGplayer market price is pulled and the card goes into the bucket.
+ * @param {object} card
+ * @param {string} printing the version of the tile that was tapped
+ * @param {(items:object[]) => void} [onAdded]
+ */
+export function openPick(card, printing, onAdded) {
+  Object.assign(sheet, { mode: 'pick', id: null, results: null, msg: '', query: '', pick: { card, printing, qty: 1, onAdded, busy: false } });
+  renderPick();
+  $('bsDone').textContent = 'Cancel';
+  if (!$('bs').open) $('bs').showModal();
+  $('bsBody').scrollTop = 0;
+}
+
+function renderPick() {
+  const pk = sheet.pick;
+  const c = pk.card;
+  const keys = printingKeys(c);
+  $('bsTitle').textContent = 'Is this the card?';
+  let html = `<div class="pick">
+    <img class="pimg" src="${esc(c.imgLarge || c.img)}" alt="">
+    <div class="t">${esc(c.name)}</div>
+    <div class="s">${esc(c.setName)} · ${esc(fmtNum(c))}${c.rarity ? ' · ' + esc(c.rarity) : ''}</div>
+  </div>`;
+  html += '<div class="sec">Version</div>';
+  html += keys.length
+    ? `<div class="chips">${keys.map((k) => `<button class="vchip${k === pk.printing ? ' on' : ''}" type="button" data-p="${esc(k)}">${esc(PRINTINGS[k] || k)}</button>`).join('')}</div>`
+    : '<p class="note">TCGplayer lists no versions for this card, so it will be added without a price.</p>';
+  html += `<div class="sec">How many</div>
+    <div class="qty"><button type="button" id="qMinus" aria-label="One less">−</button><b id="qVal">${pk.qty}</b><button type="button" id="qPlus" aria-label="One more">+</button></div>`;
+  html += `<button class="addbtn" type="button" id="pickAdd"${pk.busy ? ' disabled' : ''}>${pk.busy ? 'Getting the price…' : `Add ${pk.qty > 1 ? pk.qty + ' ' : ''}to ${esc(activeBucket().name)}`}</button>`;
+  html += `<a class="plink" href="${esc(tcgplayerSearchUrl(c))}" target="_blank" rel="noopener">View on TCGplayer ›</a>`;
   $('bsBody').innerHTML = html;
-  $('bsBody').querySelectorAll('.cand').forEach((el) => el.addEventListener('click', () => {
-    const c = sheet.results.find((x) => x.id === el.dataset.id);
-    if (!c) return;
-    const b = activeBucket();
-    const it = { id: crypto.randomUUID(), status: 'done', card: c, printing: defaultPrinting(c), confirmed: true, cands: sheet.results.slice(0, 12), addedAt: new Date().toISOString() };
+
+  $('bsBody').querySelectorAll('.vchip').forEach((el) => el.addEventListener('click', () => { pk.printing = el.dataset.p; renderPick(); }));
+  $('qMinus').addEventListener('click', () => { pk.qty = Math.max(1, pk.qty - 1); renderPick(); });
+  $('qPlus').addEventListener('click', () => { pk.qty = Math.min(99, pk.qty + 1); renderPick(); });
+  $('pickAdd').addEventListener('click', () => addPicked(pk));
+}
+
+async function addPicked(pk) {
+  if (pk.busy) return;
+  pk.busy = true;
+  renderPick();
+  // Confirmed: pull today's market price for this exact card from its price source.
+  let card = pk.card;
+  try {
+    const p = PROVIDERS[card.source];
+    const [fresh] = p ? await p.getByIds([card.sourceId], { key: app.settings.tcgKey }) : [];
+    if (fresh) card = fresh;
+  } catch (e) { /* offline: use the copy already loaded */ }
+  const printing = (card.prices[pk.printing] || !printingKeys(card).length) ? pk.printing : defaultPrinting(card);
+  const b = activeBucket();
+  const now = new Date().toISOString();
+  const added = [];
+  for (let i = 0; i < pk.qty; i++) {
+    const it = { id: crypto.randomUUID(), status: 'done', card, printing, confirmed: true, via: 'search', cands: [], addedAt: now };
     b.items.unshift(it);
     app.storage.saveItem(b.id, it);
     renderItem(it, true);
-    renderSummary();
-    toast(`Added ${c.name} · ${money(marketOf(it))}`);
-  }));
-  wireSearch(renderAdd, true);
+    added.push(it);
+  }
+  renderSummary();
+  const version = PRINTINGS[printing] || printing;
+  toast(`Added ${pk.qty > 1 ? pk.qty + ' × ' : ''}${card.name}${version ? ' · ' + version : ''} · ${money(marketOf(added[0]))}${pk.qty > 1 ? ' each' : ''}`);
+  if ($('bs').open) $('bs').close();
+  if (pk.onAdded) pk.onAdded(added);
 }
 
 /* ---------- Buckets: switch, create, import ---------- */
@@ -241,9 +289,9 @@ async function importCsv(file) {
 }
 
 export function openSheet(mode, id) {
-  Object.assign(sheet, { mode, id: id || null, results: null, msg: '', query: '' });
+  Object.assign(sheet, { mode, id: id || null, results: null, msg: '', query: '', pick: null });
+  $('bsDone').textContent = 'Done';
   if (mode === 'change') renderChange();
-  else if (mode === 'add') renderAdd();
   else renderBuckets();
   if (!$('bs').open) $('bs').showModal();
   $('bsBody').scrollTop = 0;

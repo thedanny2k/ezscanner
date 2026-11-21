@@ -80,6 +80,13 @@ describe('scan pipeline', () => {
     expect(item.card.name).toBe('Pikachu');
   });
 
+  it('keeps the text match (and flags it) when the AI cannot load the candidate images', async () => {
+    const { item } = await scan({ verdict: new Error('AI error: Unable to download the file. Please verify the URL and try again.') });
+    expect(item.checkSkipped).toBe(true);
+    expect(item.verified).toBe(false);
+    expect(item.status).toBe('done');
+  });
+
   it('skips the double-check when it is off or the match is already clear', async () => {
     expect((await scan({ verify: 'off' })).sent).toHaveLength(1);
     expect((await scan({ verify: 'unsure' })).sent).toHaveLength(1);

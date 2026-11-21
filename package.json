@@ -9,7 +9,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "serve": "npx --yes serve .",
-    "score": "node eval/score.js eval/testset.csv"
+    "score": "node eval/score.js eval/testset.csv",
+    "prices": "node scripts/build-prices.mjs prices",
+    "prices:quick": "node scripts/build-prices.mjs prices --limit 12"
   },
   "devDependencies": {
     "vitest": "^5.1.0"

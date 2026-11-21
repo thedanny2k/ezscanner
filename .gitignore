@@ -5,6 +5,8 @@ node_modules/
 .DS_Store
 coverage/
 _site/
+# Built by scripts/build-prices.mjs (daily in CI, or `npm run prices` locally); never committed
+prices/
 supabase/.temp/
 supabase/.branches/
 

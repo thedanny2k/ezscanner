@@ -56,7 +56,7 @@ export function createScanner({ getAi, ocr, getProvider, getSettings, onChange }
     const canvas = images.get(item.id);
     const settings = getSettings();
     const ai = getAi();
-    Object.assign(item, { status: 'reading', error: '', verified: false });
+    Object.assign(item, { status: 'reading', error: '', verified: false, checkSkipped: false });
     onChange(item, false);
     try {
       if (!canvas) throw new Error('Photo no longer available. Tap to search.');
@@ -79,7 +79,10 @@ export function createScanner({ getAi, ocr, getProvider, getSettings, onChange }
         try {
           verdict = await ai.verify(canvas, scored.map((x) => x.c), settings.model);
         } catch (e) {
-          conf = Math.min(conf, 80); // couldn't double-check: let a person look
+          // If the AI can't load the price source's card images the check can't run for any scan,
+          // so keep the text-match confidence (like double-check off) and tell the person once.
+          if (e.imagesUnavailable) item.checkSkipped = true;
+          else conf = Math.min(conf, 80); // couldn't double-check: let a person look
         }
         if (verdict) {
           const v = applyVerdict(scored, conf, verdict);

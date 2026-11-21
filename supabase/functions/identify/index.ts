@@ -22,7 +22,7 @@ const THINKING_OFF: Record<string, { type: string }> = {
 };
 const DEFAULT_MODEL = 'claude-sonnet-5-5';
 const MAX_IMAGE_B64 = 8_000_000; // ~6 MB image; the app sends well under 300 KB
-const ALLOWED_IMAGE_HOSTS = new Set(['images.pokemontcg.io', 'assets.tcgdex.net', 'images.scrydex.com']);
+const ALLOWED_IMAGE_HOSTS = new Set(['tcgplayer-cdn.tcgplayer.com', 'images.pokemontcg.io', 'assets.tcgdex.net', 'images.scrydex.com']);
 
 const cors = {
   'Access-Control-Allow-Origin': '*',

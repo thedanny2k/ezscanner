@@ -15,3 +15,5 @@ Every price source implements one interface (`src/providers/provider.js`): `find
 
 ## Alternatives considered
 - Hard-code Scrydex now: reliable, but a monthly cost before we know we need it.
+
+**Update 2026-11-20:** the default is now TCGplayer's own price guide, published daily with the site ([0007](0007-tcgplayer-market-price-daily-file.md)).

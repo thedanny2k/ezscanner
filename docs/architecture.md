@@ -26,9 +26,12 @@ flowchart TB
   CAM --> REC[recognize/: ai · verify · ocr]
   REC --> M[match.js]
   M --> P[providers/: one interface]
+  P --> TP[TCGplayer market price · default<br/>prices/cards.json]
   P --> T[TCGdex · free]
   P --> S[Scrydex · paid]
   P --> L[pokemontcg.io · legacy]
+  GA[GitHub Action, daily<br/>scripts/build-prices.mjs] --> TCSV[tcgcsv.com<br/>TCGplayer price guide]
+  GA --> TP
   REC --> EF[Supabase Edge Function: identify<br/>holds the Claude key]
   EF --> CL[Claude API]
   BK --> ST[storage/: one interface]
@@ -42,15 +45,17 @@ flowchart TB
 | --- | --- | --- |
 | `scan.js` | The pipeline: read → match → double-check → done / review / failed | ✅ |
 | `match.js` | Collector-number parsing, candidate scoring, confidence | ✅ |
+| `search.js` | Typed search: every word matches name, set, set code or number prefix; ranking, sorts, recent searches | ✅ |
 | `recognize/prompts.js`, `verify.js` | What Claude is asked; what a double-check verdict does to a match | ✅ |
 | `recognize/ai.js` | Transports to Claude (on-phone key now, Edge Function in v0.3) | via `scan.js` |
 | `cards.js` | Card shape helpers, printings (versions) | ✅ |
 | `buckets.js` | Market, offer, profit, offer ↔ % calculator; review cards excluded | ✅ |
 | `csv.js` | Export and import | ✅ |
 | `stats.js` | Accuracy per reader from real use | ✅ |
-| `providers/*` | Price sources behind one contract | ✅ contract + mapping |
+| `providers/*` | Price sources behind one contract; `tcgplayer.js` searches the daily price file in memory | ✅ |
+| `scripts/build-prices.mjs` | Daily: TCGplayer price guide → `prices/cards.json` (market price only) | ✅ via `tcgplayer-data.js` + fake-server run |
 | `storage/*` | IndexedDB now, Supabase in v0.3 | browser run |
-| `recognize/ocr.js`, `camera.js`, `ui/*`, `main.js` | Text reader, camera, screens | browser run |
+| `recognize/ocr.js`, `camera.js`, `ui/*`, `main.js` | Text reader, camera, screens (`ui/search.js`: the search screen) | browser run |
 
 ## Data model
 

@@ -1,0 +1,614 @@
+{
+ "_note": "Sample data in tcgcsv.com's response shapes (https://tcgcsv.com/docs). Product ids 9xxxxx are made up; prices are illustrative.",
+ "updated": "2026-11-19T20:05:11.000Z",
+ "groups": [
+  {
+   "groupId": 3170,
+   "name": "SWSH12: Silver Tempest",
+   "abbreviation": "SIT",
+   "isSupplemental": false,
+   "publishedOn": "2022-11-11T00:00:00",
+   "modifiedOn": "2026-11-18T00:00:00",
+   "categoryId": 3
+  },
+  {
+   "groupId": 23237,
+   "name": "SV: Scarlet & Violet 151",
+   "abbreviation": "MEW",
+   "isSupplemental": false,
+   "publishedOn": "2023-09-22T00:00:00",
+   "modifiedOn": "2026-11-18T00:00:00",
+   "categoryId": 3
+  },
+  {
+   "groupId": 604,
+   "name": "Base Set",
+   "abbreviation": "BS",
+   "isSupplemental": false,
+   "publishedOn": "1999-01-09T00:00:00",
+   "modifiedOn": "2026-11-18T00:00:00",
+   "categoryId": 3
+  },
+  {
+   "groupId": 1663,
+   "name": "Base Set (Shadowless)",
+   "abbreviation": "BSS",
+   "isSupplemental": false,
+   "publishedOn": "1999-01-09T00:00:00",
+   "modifiedOn": "2026-11-18T00:00:00",
+   "categoryId": 3
+  },
+  {
+   "groupId": 999,
+   "name": "Empty Sealed-Only Group",
+   "abbreviation": "",
+   "isSupplemental": true,
+   "publishedOn": "2020-01-01T00:00:00",
+   "modifiedOn": "2026-11-18T00:00:00",
+   "categoryId": 3
+  }
+ ],
+ "products": {
+  "3170": [
+   {
+    "productId": 283388,
+    "name": "Silver Tempest Booster Pack",
+    "cleanName": "Silver Tempest Booster Pack",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/283388_200w.jpg",
+    "categoryId": 3,
+    "groupId": 3170,
+    "url": "https://www.tcgplayer.com/product/283388/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 453523,
+    "name": "Code Card - Silver Tempest Booster Pack",
+    "cleanName": "Code Card - Silver Tempest Booster Pack",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/453523_200w.jpg",
+    "categoryId": 3,
+    "groupId": 3170,
+    "url": "https://www.tcgplayer.com/product/453523/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Code Card"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 450289,
+    "name": "Lugia V",
+    "cleanName": "Lugia V",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/450289_200w.jpg",
+    "categoryId": 3,
+    "groupId": 3170,
+    "url": "https://www.tcgplayer.com/product/450289/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "138/195"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Ultra Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 451833,
+    "name": "Lugia V (Full Art)",
+    "cleanName": "Lugia V Full Art",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/451833_200w.jpg",
+    "categoryId": 3,
+    "groupId": 3170,
+    "url": "https://www.tcgplayer.com/product/451833/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "185/195"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Ultra Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 451834,
+    "name": "Lugia V (Alternate Full Art)",
+    "cleanName": "Lugia V Alternate Full Art",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/451834_200w.jpg",
+    "categoryId": 3,
+    "groupId": 3170,
+    "url": "https://www.tcgplayer.com/product/451834/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "186/195"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Ultra Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 451995,
+    "name": "Lugia VSTAR (Secret) (202)",
+    "cleanName": "Lugia VSTAR Secret 202",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/451995_200w.jpg",
+    "categoryId": 3,
+    "groupId": 3170,
+    "url": "https://www.tcgplayer.com/product/451995/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "202/195"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Secret Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 451799,
+    "name": "Fletchling",
+    "cleanName": "Fletchling",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/451799_200w.jpg",
+    "categoryId": 3,
+    "groupId": 3170,
+    "url": "https://www.tcgplayer.com/product/451799/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "150/195"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Common"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   }
+  ],
+  "23237": [
+   {
+    "productId": 900101,
+    "name": "Charizard ex - 199/165",
+    "cleanName": "Charizard ex - 199/165",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/900101_200w.jpg",
+    "categoryId": 3,
+    "groupId": 23237,
+    "url": "https://www.tcgplayer.com/product/900101/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "199/165"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Special Illustration Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 900102,
+    "name": "Charizard ex",
+    "cleanName": "Charizard ex",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/900102_200w.jpg",
+    "categoryId": 3,
+    "groupId": 23237,
+    "url": "https://www.tcgplayer.com/product/900102/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "006/165"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Double Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   },
+   {
+    "productId": 900103,
+    "name": "Pikachu",
+    "cleanName": "Pikachu",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/900103_200w.jpg",
+    "categoryId": 3,
+    "groupId": 23237,
+    "url": "https://www.tcgplayer.com/product/900103/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "025/165"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Common"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   }
+  ],
+  "604": [
+   {
+    "productId": 900201,
+    "name": "Charizard",
+    "cleanName": "Charizard",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/900201_200w.jpg",
+    "categoryId": 3,
+    "groupId": 604,
+    "url": "https://www.tcgplayer.com/product/900201/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "4/102"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Holo Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   }
+  ],
+  "1663": [
+   {
+    "productId": 900301,
+    "name": "Charizard",
+    "cleanName": "Charizard",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/900301_200w.jpg",
+    "categoryId": 3,
+    "groupId": 1663,
+    "url": "https://www.tcgplayer.com/product/900301/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "Number",
+      "displayName": "Card Number",
+      "value": "4/102"
+     },
+     {
+      "name": "Rarity",
+      "displayName": "Rarity",
+      "value": "Holo Rare"
+     },
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   }
+  ],
+  "999": [
+   {
+    "productId": 900901,
+    "name": "Some Tin",
+    "cleanName": "Some Tin",
+    "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/900901_200w.jpg",
+    "categoryId": 3,
+    "groupId": 999,
+    "url": "https://www.tcgplayer.com/product/900901/pokemon-sample",
+    "modifiedOn": "2026-11-18T10:00:00",
+    "imageCount": 1,
+    "presaleInfo": {
+     "isPresale": false,
+     "releasedOn": null,
+     "note": null
+    },
+    "extendedData": [
+     {
+      "name": "CardText",
+      "displayName": "Card Text",
+      "value": "(sample text)"
+     }
+    ]
+   }
+  ]
+ },
+ "prices": {
+  "3170": [
+   {
+    "productId": 283388,
+    "lowPrice": 10.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 14.89,
+    "directLowPrice": null,
+    "subTypeName": "Normal"
+   },
+   {
+    "productId": 450289,
+    "lowPrice": 1.5,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 1.92,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   },
+   {
+    "productId": 451833,
+    "lowPrice": 7.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 8.4,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   },
+   {
+    "productId": 451834,
+    "lowPrice": 199.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 210.55,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   },
+   {
+    "productId": 451995,
+    "lowPrice": 19.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 21.1,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   },
+   {
+    "productId": 451799,
+    "lowPrice": 0.01,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 0.05,
+    "directLowPrice": null,
+    "subTypeName": "Normal"
+   },
+   {
+    "productId": 451799,
+    "lowPrice": 0.05,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 0.12,
+    "directLowPrice": null,
+    "subTypeName": "Reverse Holofoil"
+   }
+  ],
+  "23237": [
+   {
+    "productId": 900101,
+    "lowPrice": 89.99,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 95.31,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   },
+   {
+    "productId": 900102,
+    "lowPrice": 3.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 3.75,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   },
+   {
+    "productId": 900103,
+    "lowPrice": 0.1,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 0.31,
+    "directLowPrice": null,
+    "subTypeName": "Normal"
+   },
+   {
+    "productId": 900103,
+    "lowPrice": 0.5,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": null,
+    "directLowPrice": null,
+    "subTypeName": "Reverse Holofoil"
+   }
+  ],
+  "604": [
+   {
+    "productId": 900201,
+    "lowPrice": 380.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 412.0,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   }
+  ],
+  "1663": [
+   {
+    "productId": 900301,
+    "lowPrice": 700.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 780.5,
+    "directLowPrice": null,
+    "subTypeName": "Holofoil"
+   },
+   {
+    "productId": 900301,
+    "lowPrice": 9000.0,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": null,
+    "directLowPrice": null,
+    "subTypeName": "1st Edition Holofoil"
+   }
+  ],
+  "999": [
+   {
+    "productId": 900901,
+    "lowPrice": null,
+    "midPrice": null,
+    "highPrice": null,
+    "marketPrice": 19.99,
+    "directLowPrice": null,
+    "subTypeName": "Normal"
+   }
+  ]
+ }
+}

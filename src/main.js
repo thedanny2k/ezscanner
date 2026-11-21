@@ -15,10 +15,12 @@ import { $, ask, clamp, money, parseMoney, toast } from './ui/dom.js';
 import { refreshItemOffers, renderAll, renderItem, renderItems, renderSummary } from './ui/render.js';
 import { openSheet, refreshOpenChange, switchBucket } from './ui/sheets.js';
 import { initSettings } from './ui/settings.js';
+import { initSearch, openSearch } from './ui/search.js';
 
 const PRESETS = [50, 60, 65, 70, 75, 80, 85, 90];
 const cam = { on: false, track: null, torchOn: false, lastTap: 0 };
 let ocrReady = false;
+let warnedCheckSkipped = false;
 
 /* ---------- AI + scan pipeline ---------- */
 
@@ -37,6 +39,10 @@ app.scanner = createScanner({
     renderItem(item);
     renderSummary();
     if (finished) refreshOpenChange(item.id);
+    if (finished && item.checkSkipped && !warnedCheckSkipped) {
+      warnedCheckSkipped = true;
+      toast('Double-check skipped: the AI couldn’t load TCGplayer’s card images. Matching by text only.');
+    }
   },
 });
 
@@ -226,7 +232,7 @@ function wire() {
     const found = el && findItem(el.dataset.id);
     if (found && found.it.status !== 'reading' && found.it.status !== 'lookup') openSheet('change', el.dataset.id);
   });
-  $('searchBtn').addEventListener('click', () => openSheet('add'));
+  $('searchBtn').addEventListener('click', openSearch);
   $('bucketBtn').addEventListener('click', () => openSheet('buckets'));
   $('bsDone').addEventListener('click', () => $('bs').close());
   $('bs').addEventListener('click', (e) => { if (e.target === $('bs')) $('bs').close(); });
@@ -300,6 +306,7 @@ function wire() {
   });
 
   initSettings(() => { warmTextReader(); updateChip(); });
+  initSearch();
 
   const setHeaderVar = () => document.documentElement.style.setProperty('--hh', $('hdr').offsetHeight + 'px');
   setHeaderVar();

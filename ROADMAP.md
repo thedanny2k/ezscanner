@@ -20,8 +20,9 @@ Each version is a GitHub milestone; each open checkbox is an issue (`scripts/git
 
 ## v0.3 Team data and keys — start here
 - [ ] First real-phone test: scan 20 cards with a real Claude key and note every miss
-- [ ] Verify TCGdex against the live API: price freshness, all versions, search by name + number
-- [ ] Choose the default price provider (TCGdex, or Scrydex behind an Edge Function)
+- [x] Prices straight from TCGplayer: daily price-guide file, market price only, default for everyone ([0007](docs/decisions/0007-tcgplayer-market-price-daily-file.md))
+- [ ] Check prices on the first 20 real scans against each card's TCGplayer page
+- [x] Collectr-style search: name, set and number prefix ("charizard 14"), tile per version, confirm before pricing
 - [ ] Create the Supabase project, run the migration, add the team
 - [ ] Sign-in screen (email magic link)
 - [ ] Supabase storage adapter with an offline copy in IndexedDB, plus live sync

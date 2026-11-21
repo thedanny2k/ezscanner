@@ -3,6 +3,17 @@
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow the milestones in [ROADMAP.md](ROADMAP.md).
 
 ## [Unreleased]
+### Changed
+- Prices now come straight from TCGplayer's price guide, and the app shows only TCGplayer's **Market Price** for each version: the number we're paid off. A GitHub Action rebuilds `prices/cards.json` from tcgcsv.com (a public mirror of TCGplayer's API) every day after TCGplayer's numbers refresh, and publishes it with the site. Lookups are instant, free and need no key ([decision 0007](docs/decisions/0007-tcgplayer-market-price-daily-file.md)).
+- Phones that saved the old default price source are moved to TCGplayer once. Picking another source in Settings afterwards sticks.
+- Card images for the visual double-check come from TCGplayer's own product images, and "View on TCGplayer" opens the exact product page.
+- The "Pick the right card" search on a scanned card uses the same search rules, so "charizard 14" works there too. The old add-by-search sheet is replaced by the search screen.
+### Added
+- **Card search, Collectr style.** The search button opens a full-screen search: type "charizard 14" and every Charizard numbered 14… shows up (exact number first), "celebi sky" finds Celebi from Skyridge, "pikachu 25/198" finds exactly that card. Every word must match the name, set, set code or the start of the collector number, and results update as you type. Results are a two-column grid with one tile per version and no prices.
+- Tapping a tile opens "Is this the card?": pick the version and how many, then add. Only then is today's TCGplayer market price pulled and the cards go into the bucket. Tiles show how many of that version are already in the bucket.
+- Recent searches (this phone), sort by best match, newest set, oldest set or card number, and a camera button that goes straight back to the scanner.
+- `scripts/build-prices.mjs` (`npm run prices`), `src/providers/tcgplayer.js` and `tcgplayer-data.js`, with tests built on tcgcsv-shaped sample data.
+- If the AI can't load the candidate images, the double-check is skipped with a one-time notice instead of sending every scan to review.
 ### Fixed
 - AI scans failed on Claude Sonnet 5.5 with "To turn thinking off on this model, send between_tools". Each model now gets the thinking setting it accepts (Sonnet 5.5: `between_tools`, Haiku 5.5: `disabled`), and if the API ever rejects it the app retries once with the model's default instead of failing the scan.
 

@@ -18,7 +18,7 @@ function statsHtml() {
 export function initSettings(onSaved) {
   $('aiModel').innerHTML = Object.entries(MODELS).map(([id, label]) => `<option value="${id}">${esc(label)}</option>`).join('');
   $('providerSel').innerHTML = Object.values(PROVIDERS).map((p) =>
-    `<option value="${p.id}"${p.id === 'scrydex' ? ' disabled' : ''}>${esc(p.label)}${p.id === 'tcgdex' ? ' · not verified yet' : p.id === 'scrydex' ? ' · not built yet' : ''}</option>`).join('');
+    `<option value="${p.id}"${p.id === 'scrydex' ? ' disabled' : ''}>${esc(p.label)}${p.id === 'tcgplayer' ? ' · recommended' : p.id === 'tcgdex' ? ' · not verified yet' : p.id === 'scrydex' ? ' · not built yet' : ''}</option>`).join('');
 
   $('settingsBtn').addEventListener('click', () => {
     const s = app.settings;
