@@ -1,0 +1,33 @@
+name: Probe TCGplayer prices
+
+# One-off, run by hand: checks whether TCGplayer answers price requests from a server (as a
+# Supabase Edge Function would be) and which of its web services gives the Near Mint Market Price.
+# Actions -> "Probe TCGplayer prices" -> Run workflow. Download the "probe" artifact when it's done.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: TCGplayer product IDs, separated by spaces (from the card's TCGplayer link)
+        default: '42382 451396'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Ask TCGplayer about these cards
+        env:
+          IDS: ${{ inputs.ids }}
+        run: node scripts/probe-tcgplayer.mjs $IDS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: probe
+          path: prices/probe-tcgplayer.json
