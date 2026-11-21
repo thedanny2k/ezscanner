@@ -23,11 +23,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  # Build: test, collect the site, add today's TCGplayer prices, package it for Pages.
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -45,8 +43,22 @@ jobs:
       - name: Build TCGplayer market prices
         # Reuses the live file when it already has today's data, and keeps it if tcgcsv is down.
         run: node scripts/build-prices.mjs _site/prices --reuse "${{ steps.pages.outputs.base_url }}/prices/cards.json"
-      - uses: actions/upload-pages-artifact@v3
+      - name: Check the package before uploading
+        run: |
+          test -f _site/index.html
+          test -f _site/prices/cards.json
+          du -sh _site
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+
+  # Deploy: publish what the build job packaged (GitHub's recommended setup: its own job).
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
