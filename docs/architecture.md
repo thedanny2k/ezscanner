@@ -47,6 +47,8 @@ flowchart TB
 | `match.js` | Collector-number parsing, candidate scoring, confidence | ✅ |
 | `livePrices.js` | Near Mint prices from the `tcg-price` function, mapped onto the card's versions only when clear | ✅ |
 | `supabase/functions/tcg-price` | Asks TCGplayer for Near Mint market prices (≤50 cards, 4 at a time, 10-min cache) | ✅ handler tests |
+| `calc.js` | Everyday calculator: × ÷ before + −, pricing-style %, ±, ⌫, insert a number | ✅ |
+| `theme.js` | Light / dark / match phone; applied before first paint by `index.html` | ✅ |
 | `search.js` | Typed search: every word matches name, set, set code or number prefix; ranking, sorts, recent searches | ✅ |
 | `recognize/prompts.js`, `verify.js` | What Claude is asked; what a double-check verdict does to a match | ✅ |
 | `recognize/ai.js` | Transports to Claude (on-phone key now, Edge Function in v0.3) | via `scan.js` |

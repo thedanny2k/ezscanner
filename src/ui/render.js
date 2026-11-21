@@ -113,7 +113,7 @@ export function renderSummary(skip) {
   const focused = document.activeElement;
   $('bucketLabel').textContent = b.name;
   $('sum').innerHTML = `${s.count}<span class="sep">•</span><em>${money(s.market)}</em>`;
-  $('offerLine').innerHTML = `<span class="o">Offer ${pctFmt(s.pct)}% · <b>${money(s.offer)}</b></span><span>${s.paid != null ? `Paid <b>${money(s.paid)}</b>` : 'Tap for calculator'}</span>`;
+  $('offerLine').innerHTML = `<span class="o">Offer ${pctFmt(s.pct)}% · <b>${money(s.offer)}</b></span><span>${s.paid != null ? `Paid <b>${money(s.paid)}</b>` : 'Tap for offer calculator'}</span>`;
 
   const attention = s.review + s.failed;
   if (!attention && app.filter === 'review') { app.filter = 'all'; renderItems(); }
